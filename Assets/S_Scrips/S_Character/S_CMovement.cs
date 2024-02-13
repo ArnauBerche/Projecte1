@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class S_CMovement : MonoBehaviour
 {
-    float speed = 9;
+    float speed;
+    float walkSpeed = 7;
+    float sprintSpeed = 15;
     float walkAcceleration = 75;
-    float airAcceleration = 100;
-    float groundDeceleration = 70;
-    float jumpHeight = 6;
+    float airAcceleration = 80;
+    float groundDeceleration = 80;
+    float jumpHeight = 12;
     public float Cgravity;
 
     private CapsuleCollider2D capCollider;
 
     private Vector2 velocity;
 
-    private bool grounded;
+    public float rad;
+    public float castDistance;
+    public LayerMask groundLayer; 
+
+    public Animator animatorCharacter;
 
     private void Awake()
     {      
@@ -24,62 +30,69 @@ public class S_CMovement : MonoBehaviour
 
     private void Update()
     {
-        // Use GetAxisRaw to ensure our input is either 0, 1 or -1.
+        speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
         float moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (grounded)
+        float acceleration = isGrounded() ? walkAcceleration : airAcceleration;
+        float deceleration = isGrounded() ? groundDeceleration : 0;
+
+        //Jump
+        if (isGrounded())
         {
             velocity.y = 0;
 
             if (Input.GetButtonDown("Jump"))
             {
-                // Calculate the velocity required to achieve the target jump height.
                 velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
             }
         }
+        else
+        {
+            Cgravity = velocity.y;
+            velocity.y += (Physics2D.gravity.y * 2) * Time.deltaTime;
+        }
 
-        float acceleration = grounded ? walkAcceleration : airAcceleration;
-        float deceleration = grounded ? groundDeceleration : 0;
 
+        //Basic Movement
         if (moveInput != 0)
         {
             velocity.x = Mathf.MoveTowards(velocity.x, speed * moveInput, acceleration * Time.deltaTime);
+            animatorCharacter.SetBool("Static",false);
+            animatorCharacter.SetBool("Walk",true);
+            if(velocity.x < 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
         else
         {
+            animatorCharacter.SetBool("Walk",false);
+            animatorCharacter.SetBool("Static",true);
             velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
         }
-        Cgravity = velocity.y;
-        velocity.y += (Physics2D.gravity.y * 2) * Time.deltaTime;
-        
+
         transform.Translate(velocity * Time.deltaTime);
 
-        grounded = false;
+    }
 
-        // Retrieve all colliders we have intersected after velocity has been applied.
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, capCollider.size, 0);
-
-        foreach (Collider2D hit in hits)
+    public bool isGrounded()
+    {
+        if(Physics2D.CircleCast(transform.position, rad, -transform.up, castDistance, groundLayer))
         {
-            // Ignore our own collider.
-            if (hit == capCollider)
-                continue;
-
-            ColliderDistance2D colliderDistance = hit.Distance(capCollider);
-
-            // Ensure that we are still overlapping this collider.
-            // The overlap may no longer exist due to another intersected collider
-            // pushing us out of this one.
-            if (colliderDistance.isOverlapped)
-            {
-                transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
-
-                // If we intersect an object beneath us, set grounded to true. 
-                if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90 && velocity.y < 0)
-                {
-                    grounded = true;
-                }
-            }
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position-transform.up * castDistance, rad);
     }
 }
