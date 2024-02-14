@@ -8,16 +8,18 @@ public class S_CMovement : MonoBehaviour
     float walkSpeed = 7;
     float sprintSpeed = 15;
     float walkAcceleration = 75;
-    float airAcceleration = 80;
-    float groundDeceleration = 80;
+    float airAcceleration = 50;
+    float groundDeceleration = 200;
     float jumpHeight = 12;
     public float Cgravity;
+    public float mayJump = 1;
+    public bool alreadyjumped;
 
     private CapsuleCollider2D capCollider;
 
     private Vector2 velocity;
 
-    public float rad;
+    public Vector2 collBox;
     public float castDistance;
     public LayerMask groundLayer; 
 
@@ -40,18 +42,32 @@ public class S_CMovement : MonoBehaviour
         if (isGrounded())
         {
             velocity.y = 0;
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
-            }
+            mayJump = 1;
         }
         else
         {
+            mayJump -= Time.deltaTime;
             Cgravity = velocity.y;
             velocity.y += (Physics2D.gravity.y * 2) * Time.deltaTime;
         }
 
+        if (Input.GetButtonDown("Jump"))
+        {
+            if(isGrounded())
+            {
+                velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+                
+            }
+            else if(alreadyjumped == false && mayJump >=0)
+            {
+                velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+            }
+            else
+            {
+                alreadyjumped = true;
+            }
+            
+        }
 
         //Basic Movement
         if (moveInput != 0)
@@ -81,7 +97,7 @@ public class S_CMovement : MonoBehaviour
 
     public bool isGrounded()
     {
-        if(Physics2D.CircleCast(transform.position, rad, -transform.up, castDistance, groundLayer))
+        if(Physics2D.BoxCast(transform.position, collBox, 0, -transform.up, castDistance, groundLayer))
         {
             return true;
         }
@@ -93,6 +109,6 @@ public class S_CMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position-transform.up * castDistance, rad);
+        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, collBox);
     }
 }
