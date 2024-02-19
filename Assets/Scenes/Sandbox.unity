@@ -902,17 +902,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  limitJumpTime: 10
-  mayJump: 1
-  isJumping: 0
-  alreadyJumped: 0
-  enableGroundCheck: 1
-  boxSize: {x: 1.25, y: 1}
-  castDistance: 1.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  animatorCharacter: {fileID: 1303522084}
+  bufferTime: 0.2
+  bufferCounter: 0
 --- !u!61 &1303522088
 BoxCollider2D:
   m_ObjectHideFlags: 0
