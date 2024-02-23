@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class S_CMovement : MonoBehaviour
 {
@@ -8,53 +9,58 @@ public class S_CMovement : MonoBehaviour
     //Movement
      
         //BaseSpeeds
-    float speed;
+    public float speed;
+    float crouchSpeed = 20;
     float walkSpeed = 40;
     float sprintSpeed = 80;
 
         //Max Speeds
-    float maxSpeed;
+    public float maxSpeed;
+    float maxCrouchSpeed = 3.5f;
     float maxWalkSpeed = 7;
     float maxSprintSpeed = 14;
         
         //Deceleration
     float groundDeceleration = 100;
-
-
     public float direction;    
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
+    private bool crouching;
 
     //Jump
 
-        //Base Height
-    private float jumpHeight = 1200;
+        //Base Height1200
+    private float jumpHeight = 20;
 
         //Fall Speed
     private float fallGravityAir = 5;
-    private float fallGravityLand = 10;
+    private float fallGravityLand = 20;
 
         //Holding Jump
-    private float limitJumpTime = 10;
+    public float limitJumpTime = 1;
 
         //Coyote
-    private bool isJumping;
-    private float coyoteCount = 0.5f;
-    private bool validCoyote;
+    public bool isJumping;
+    public float coyoteCount = 3f;
+    public bool validCoyote;
 
     //Input Buffer
-    private float bufferTime = 1;
+    private float bufferTime = 0.2f;
     public float bufferCounter;
 
 
     //Groud Checks
-    private bool onGround;
+    public bool onGround;
 
     //Components
     private Rigidbody2D rB;
     private Animator animatorCharacter;
+    public Text textDispaly;
+
+    //GameStuff
+    public bool onIce;
 
     private void Awake()
-    {      
+    {   
         rB = GetComponent<Rigidbody2D>();
         animatorCharacter = GetComponent<Animator>();
     }
@@ -73,15 +79,46 @@ public class S_CMovement : MonoBehaviour
     private void Update()
     {
         Animations();
-        JumpHability();
-        Buffer();
+
+        //JumpRelated
+        Coyote();
+        Buffer();            
+        JumpChecks();
+
+        if((bufferCounter > 0f && (onGround || validCoyote) && !isJumping))
+        {
+            limitJumpTime = 1;
+            JumpHability();
+        }
+        else if(!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping))
+        {
+            isJumping = false;
+            rB.gravityScale = fallGravityLand;
+            limitJumpTime = 2;
+        }
+
+        if(Input.GetButton("Crouch") && onGround && !isJumping)
+        {
+            crouching = true;
+        }
+        else
+        {
+            crouching = false;
+        }
+        
     }
 
     private void MoveCharacter(){
-        if(onGround)
+        
+        if(onGround && !crouching)
         {
-            speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;            
-            maxSpeed = Input.GetKey(KeyCode.LeftShift) ? maxSprintSpeed :maxWalkSpeed;            
+            speed = Input.GetButton("Run") ? sprintSpeed : walkSpeed;            
+            maxSpeed = Input.GetButton("Run") ? maxSprintSpeed :maxWalkSpeed;
+        }
+        else if(onGround && crouching)
+        {
+            speed = Input.GetButton("Crouch") ? crouchSpeed : walkSpeed;            
+            maxSpeed = Input.GetButton("Crouch") ? maxCrouchSpeed :maxWalkSpeed;   
         }
 
         direction = GetInput().x;
@@ -93,53 +130,37 @@ public class S_CMovement : MonoBehaviour
             rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
         }
     }
-    public void ApplyDeacceleration(){
-        if(Mathf.Abs(direction) < 0.2f && onGround && !isJumping)
+
+    public void ApplyDeacceleration()
+    {
+        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching))
         {
-            rB.drag = groundDeceleration;
-        }
-        else
+            rB.drag = groundDeceleration; 
+        } 
+        else 
         {
-            rB.drag = 0;
+            rB.drag = 0; 
         }
     }
+
     public void JumpHability()
     {
-        if ((bufferCounter > 0f && (validCoyote || onGround))) 
-        {
-            Jump();
-            bufferCounter = 0;
-        }
+        isJumping = true;
+        rB.gravityScale = fallGravityAir;
+        Jump();
+    }
 
-        if (Input.GetButton("Jump"))
+    void JumpChecks()
+    {
+        
+        if (onGround)
         {
-            if (limitJumpTime > 0)
-            {
-                isJumping = true;
-                limitJumpTime -= 10 * Time.deltaTime;
-            }
-            else
-            {
-                coyoteCount = 0;
-                isJumping = false;
-                rB.gravityScale = fallGravityAir;
-                rB.drag = 0;
-            }
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            coyoteCount = 0;
-            isJumping = false;
             rB.gravityScale = fallGravityLand;
-            limitJumpTime = 10;
+            coyoteCount = 1;
+            isJumping = false;
         }
 
-        if(onGround){
-            rB.gravityScale = fallGravityAir;
-            coyoteCount = 1;
-        }
-        else if(!isJumping)
+        if (!isJumping && !onGround)
         {
             if (validCoyote)
             {
@@ -149,16 +170,22 @@ public class S_CMovement : MonoBehaviour
             {
                 rB.gravityScale = fallGravityLand;
             }
-            
-            Coyote();
+        }
+
+        limitJumpTime -= 2 * Time.deltaTime; 
+
+        if(limitJumpTime < 0f && !validCoyote)
+        {
+            rB.gravityScale = fallGravityLand;
         }
     }
+
     public void Jump()
     {
-            bufferCounter = 0f;
-            rB.velocity = new Vector2(rB.velocity.x, 0) * Time.deltaTime;
-            rB.AddForce(transform.up * jumpHeight);   
+        rB.velocity = new Vector2(rB.velocity.x, 0);
+        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);                           
     }
+
     public void Coyote()
     {
         coyoteCount -= 10 * Time.deltaTime;
@@ -168,6 +195,7 @@ public class S_CMovement : MonoBehaviour
         }
         else 
         {
+            coyoteCount = 0;
             validCoyote = false;
         }
     }
@@ -191,6 +219,15 @@ public class S_CMovement : MonoBehaviour
                 if (hitpos.normal.y > 0)
                 {
                     onGround = true;
+
+                        if(col.collider.tag == "Ice")
+                        {
+                            onIce = true;
+                        }
+                        else
+                        {
+                            onIce = false; 
+                        }
                 }
                 if (hitpos.normal.y < 0)
                 {
@@ -198,18 +235,14 @@ public class S_CMovement : MonoBehaviour
                 }
             }
         }
+
+        
     }
     void OnCollisionExit2D(Collision2D col)
     {
         onGround = false;
     }
-    void Debugs()
-    {
-        if (isJumping)
-        {
-            Debug.Log(transform.position.y);
-        }
-    }
+
     public void Animations()
     {
         //Basic Animations

@@ -1,36 +1,37 @@
 Thank you for purchasing this package!
 
-included is:
-600+ 8x8 pixelart tiles
-120+ 16x16 pixelart tiles
+included with:
+245+ unique 8x8 pixelart tiles
 
-Animated Climber Character with:
-8 frame idle animation
-8 frame run animation
-4 frame climb animation
-single frame jump animation
-single frame fall animation
-single frame wall grab animation
+2 animated characters with:
+idle animation
+run animation
+jump animation
+fall animation
 
-11 Tilemaps:
-2 rocky cliff tilemaps
-3 ice tilemaps
-3 background tilemaps
+1 animated enemy with:
+idle animation
+jump animation
+fall animation
+
+4 Tilemaps:
+Grass tilemap
+Dirt tilemap
+Dirt Background tilemap
 Spikes tilemap
-Platform tilemap
-snow detail tilemap
-
-26 Decorations:
-11 sign decorations
-4 icicles
-8 stalagmites
-3 climbing gear decorations
 
 
-4 scenes:
-2 Demo levels
-2 Asset galleries
+14 Decorations:
+5 grass tiles
+3 unique rocks
+2 unique trees
+2 unique bushes
+1 wooden sign
+1 tree stump
 
-3 layer parallax background
 
-This package will recieve updates with new features!
+Two scenes:
+Demo level
+Asset gallery
+
+5 layer parallax background
