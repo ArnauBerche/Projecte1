@@ -1,45 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class S_CMovement : MonoBehaviour
 {
-    float speed;
+
+    //Movement
+     
+        //BaseSpeeds
+    public float speed;
+    float crouchSpeed = 20;
     float walkSpeed = 40;
     float sprintSpeed = 80;
 
-    float maxSpeed;
-    float maxWalkSpeed = 5;
-    float maxSprintSpeed = 10;
+        //Max Speeds
+    public float maxSpeed;
+    float maxCrouchSpeed = 3.5f;
+    float maxWalkSpeed = 7;
+    float maxSprintSpeed = 14;
+        
+        //Deceleration
     float groundDeceleration = 100;
-
     public float direction;    
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
+    private bool crouching;
 
-    float jumpHeight = 20;
-    public float fallGravityM = 1;
-    public float limitJumpTime = 10;
-    public float mayJump = 1;
+    //Jump
+
+        //Base Height1200
+    private float jumpHeight = 20;
+
+        //Fall Speed
+    private float fallGravityAir = 5;
+    private float fallGravityLand = 20;
+
+        //Holding Jump
+    public float limitJumpTime = 1;
+
+        //Coyote
     public bool isJumping;
-    public bool alreadyJumped;
-    
-    private bool onGround;
+    public float coyoteCount = 3f;
+    public bool validCoyote;
 
-    public bool enableGroundCheck = true; 
+    //Input Buffer
+    private float bufferTime = 0.2f;
+    public float bufferCounter;
 
 
+    //Groud Checks
+    public bool onGround;
+
+    //Components
     private Rigidbody2D rB;
+    private Animator animatorCharacter;
+    public Text textDispaly;
 
-    private Vector2 velocity;
-    public Vector2 boxSize;
-    public float castDistance;
-    public LayerMask groundLayer; 
-
-    public Animator animatorCharacter;
+    //GameStuff
+    public bool onIce;
 
     private void Awake()
-    {      
+    {   
         rB = GetComponent<Rigidbody2D>();
+        animatorCharacter = GetComponent<Animator>();
     }
 
     public Vector2 GetInput()
@@ -51,14 +74,173 @@ public class S_CMovement : MonoBehaviour
     {
         MoveCharacter();
         ApplyDeacceleration();
-        Debug.Log(onGround);
     }
 
     private void Update()
     {
         Animations();
-        JumpHability();
-        onGround = Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer);
+
+        //JumpRelated
+        Coyote();
+        Buffer();            
+        JumpChecks();
+
+        if((bufferCounter > 0f && (onGround || validCoyote) && !isJumping))
+        {
+            limitJumpTime = 1;
+            JumpHability();
+        }
+        else if(!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping))
+        {
+            isJumping = false;
+            rB.gravityScale = fallGravityLand;
+            limitJumpTime = 2;
+        }
+
+        if(Input.GetButton("Crouch") && onGround && !isJumping)
+        {
+            crouching = true;
+        }
+        else
+        {
+            crouching = false;
+        }
+        
+    }
+
+    private void MoveCharacter(){
+        
+        if(onGround && !crouching)
+        {
+            speed = Input.GetButton("Run") ? sprintSpeed : walkSpeed;            
+            maxSpeed = Input.GetButton("Run") ? maxSprintSpeed :maxWalkSpeed;
+        }
+        else if(onGround && crouching)
+        {
+            speed = Input.GetButton("Crouch") ? crouchSpeed : walkSpeed;            
+            maxSpeed = Input.GetButton("Crouch") ? maxCrouchSpeed :maxWalkSpeed;   
+        }
+
+        direction = GetInput().x;
+
+        rB.AddForce(new Vector2(direction, 0) * speed);
+
+        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
+        {
+            rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
+        }
+    }
+
+    public void ApplyDeacceleration()
+    {
+        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching))
+        {
+            rB.drag = groundDeceleration; 
+        } 
+        else 
+        {
+            rB.drag = 0; 
+        }
+    }
+
+    public void JumpHability()
+    {
+        isJumping = true;
+        rB.gravityScale = fallGravityAir;
+        Jump();
+    }
+
+    void JumpChecks()
+    {
+        
+        if (onGround)
+        {
+            rB.gravityScale = fallGravityLand;
+            coyoteCount = 1;
+            isJumping = false;
+        }
+
+        if (!isJumping && !onGround)
+        {
+            if (validCoyote)
+            {
+                rB.gravityScale = fallGravityAir;
+            }
+            else
+            {
+                rB.gravityScale = fallGravityLand;
+            }
+        }
+
+        limitJumpTime -= 2 * Time.deltaTime; 
+
+        if(limitJumpTime < 0f && !validCoyote)
+        {
+            rB.gravityScale = fallGravityLand;
+        }
+    }
+
+    public void Jump()
+    {
+        rB.velocity = new Vector2(rB.velocity.x, 0);
+        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);                           
+    }
+
+    public void Coyote()
+    {
+        coyoteCount -= 10 * Time.deltaTime;
+        if (coyoteCount > 0)
+        {
+            validCoyote = true;
+        }
+        else 
+        {
+            coyoteCount = 0;
+            validCoyote = false;
+        }
+    }
+    public void Buffer() 
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            bufferCounter = bufferTime;
+        }
+        else
+        {
+            bufferCounter -= Time.deltaTime;
+        }
+    }
+    void OnCollisionStay2D(Collision2D col) 
+    {
+        if (col.collider != null)
+        {
+            foreach (ContactPoint2D hitpos in col.contacts)
+            {
+                if (hitpos.normal.y > 0)
+                {
+                    onGround = true;
+
+                        if(col.collider.tag == "Ice")
+                        {
+                            onIce = true;
+                        }
+                        else
+                        {
+                            onIce = false; 
+                        }
+                }
+                if (hitpos.normal.y < 0)
+                {
+                    rB.gravityScale = fallGravityLand;
+                }
+            }
+        }
+
+        
+    }
+    void OnCollisionExit2D(Collision2D col)
+    {
+        onGround = false;
     }
 
     public void Animations()
@@ -82,83 +264,5 @@ public class S_CMovement : MonoBehaviour
             animatorCharacter.SetBool("Walk",false);
             animatorCharacter.SetBool("Static",true);
         }  
-    }
-
-    private void MoveCharacter(){
-        if(onGround)
-        {
-            speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;            
-            maxSpeed = Input.GetKey(KeyCode.LeftShift) ? maxSprintSpeed :maxWalkSpeed;            
-        }
-
-        direction = GetInput().x;
-
-        rB.AddForce(new Vector2(direction, 0) * speed);
-
-        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
-        {
-            rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
-        }
-    }
-
-    public void ApplyDeacceleration(){
-        if(Mathf.Abs(direction) < 0.2f && onGround && !isJumping)
-        {
-            rB.drag = groundDeceleration;
-        }
-        else
-        {
-            rB.drag = 0;
-        }
-    }
-    
-    public void JumpHability()
-    {
-        if (Input.GetButtonDown("Jump")){
-            Jump();
-            fallGravityM = 1;
-        }
-
-        if(Input.GetButton("Jump"))
-        {
-            isJumping = true;
-            limitJumpTime -= 0.1f;
-            
-            if(limitJumpTime < 0)
-            {
-                isJumping = false;
-                rB.gravityScale = fallGravityM;
-                rB.drag = 0;
-            }
-        }
-
-        if(Input.GetButtonUp("Jump"))
-        {
-            isJumping = false;
-            rB.gravityScale = fallGravityM;
-        }
-
-        if(onGround){
-            fallGravityM = 1;
-            rB.gravityScale = fallGravityM;
-            limitJumpTime = 10;
-        }
-        else if(!isJumping)
-        {
-            fallGravityM = 8;
-            rB.gravityScale = fallGravityM;
-        }
-    }
-
-    public void Jump(){
-        if(onGround)
-        {
-            rB.velocity = new Vector2(rB.velocity.x, 0);
-            rB.velocity = new Vector2(rB.velocity.x, jumpHeight);
-        }      
-    }
-
-    private void OnDrawGizmos(){
-        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
     }
 }
