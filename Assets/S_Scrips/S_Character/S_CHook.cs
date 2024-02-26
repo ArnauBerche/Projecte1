@@ -6,6 +6,7 @@ public class S_CHook : MonoBehaviour
 {
     [Header("Scripts Ref:")]
     public S_CRope grappleRope;
+    public S_CMovement moveChar;
     public GameObject mainCharacter;
 
     [Header("Layers Settings:")]
@@ -81,15 +82,16 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
-        if(isHooked && Input.GetButtonDown("Fire1"))
+        if(isHooked && moveChar.bufferCounter > 0f)
         {
             isHooked = false;
+            moveChar.limitJumpTime = 1;
+            moveChar.JumpHability();
         }
 
         if(transform.position.y <= grapplePoint.y)
         {
-            m_springJoint2D.frequency = 0;
-
+            
             if(Input.GetAxisRaw("Vertical") == 1 && m_springJoint2D.distance > minDistance)
             {
                 m_springJoint2D.distance -= 5 * Time.deltaTime;
@@ -99,16 +101,22 @@ public class S_CHook : MonoBehaviour
                 m_springJoint2D.distance += 5 * Time.deltaTime;
             }
         }
-        else
+        else if(transform.position.y >= grapplePoint.y + 2)
         {
-            m_springJoint2D.frequency = 0;
+            isHooked = false;
         }
 
+        if(isHooked && m_springJoint2D.distance > maxDistance + 1)
+        {
+            isHooked = false;
+        }
 
         if(!isHooked)
         {
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
+            m_springJoint2D.distance = 2;
+            
         }
         else
         {

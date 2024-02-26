@@ -33,7 +33,7 @@ public class S_CMovement : MonoBehaviour
 
         //Fall Speed
     private float fallGravityAir = 5;
-    private float fallGravityLand = 20;
+    private float fallGravityLand = 15;
 
         //Holding Jump
     public float limitJumpTime = 1;

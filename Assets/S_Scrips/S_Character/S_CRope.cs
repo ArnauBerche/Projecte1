@@ -33,7 +33,7 @@ public class S_CRope : MonoBehaviour
         m_lineRenderer.positionCount = percision;
         waveSize = StartWaveSize;
         strightLine = false;
-
+        
         LinePointsToFirePoint();
 
         m_lineRenderer.enabled = true;
@@ -77,12 +77,12 @@ public class S_CRope : MonoBehaviour
             if (!isGrappling)
             {
                 grapplingGun.Grapple();
-                isGrappling = true;
             }
             if (waveSize > 0)
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;
                 DrawRopeWaves();
+                grapplingGun.isHooked = true;
             }
             else
             {
