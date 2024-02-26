@@ -6557,6 +6557,7 @@ MonoBehaviour:
   speed: 0
   maxSpeed: 0
   direction: 0
+  height: 0
   limitJumpTime: 10
   isJumping: 0
   coyoteCount: 3
@@ -6658,7 +6659,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 1
-  m_Frequency: 2
+  m_Frequency: 0
 --- !u!114 &1303522091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6688,7 +6689,7 @@ MonoBehaviour:
   maxDistance: 5
   minDistance: 1
   isHooked: 0
-  launchSpeed: 1
+  launchSpeed: 10
   grapplePoint: {x: 0, y: 0}
   grappleDistanceVector: {x: 0, y: 0}
   dirToMouse: {x: 0, y: 0, z: 0}

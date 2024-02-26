@@ -49,7 +49,6 @@ public class S_CHook : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
-
     }
 
     private void Update()
@@ -84,22 +83,25 @@ public class S_CHook : MonoBehaviour
 
         if(isHooked && moveChar.bufferCounter > 0f)
         {
-            isHooked = false;
             moveChar.limitJumpTime = 1;
             moveChar.JumpHability();
+            isHooked = false;
         }
 
         if(transform.position.y <= grapplePoint.y)
         {
-            
+            /*
             if(Input.GetAxisRaw("Vertical") == 1 && m_springJoint2D.distance > minDistance)
             {
-                m_springJoint2D.distance -= 5 * Time.deltaTime;
+                Debug.Log("Top");
+                m_springJoint2D.distance -= 30 * Time.deltaTime;
             }
             else if(Input.GetAxisRaw("Vertical") == -1 && m_springJoint2D.distance < maxDistance)
             {
-                m_springJoint2D.distance += 5 * Time.deltaTime;
+                Debug.Log("down");
+                m_springJoint2D.distance += 30 * Time.deltaTime;
             }
+            */
         }
         else if(transform.position.y >= grapplePoint.y + 2)
         {

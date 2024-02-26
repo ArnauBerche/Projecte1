@@ -23,6 +23,7 @@ public class S_CMovement : MonoBehaviour
         //Deceleration
     float groundDeceleration = 100;
     public float direction;    
+    public float height;    
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
     private bool crouching;
 
@@ -123,6 +124,7 @@ public class S_CMovement : MonoBehaviour
         }
 
         direction = GetInput().x;
+        height = GetInput().y;
 
         rB.AddForce(new Vector2(direction, 0) * speed);
 
