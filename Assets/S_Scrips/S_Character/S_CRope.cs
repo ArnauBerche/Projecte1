@@ -23,8 +23,6 @@ public class S_CRope : MonoBehaviour
 
     float moveTime = 0;
 
-    [HideInInspector] public bool isGrappling = true;
-
     bool strightLine = true;
 
     private void OnEnable()
@@ -42,7 +40,6 @@ public class S_CRope : MonoBehaviour
     private void OnDisable()
     {
         m_lineRenderer.enabled = false;
-        isGrappling = false;
     }
 
     private void LinePointsToFirePoint()
@@ -74,10 +71,6 @@ public class S_CRope : MonoBehaviour
         }
         else
         {
-            if (!isGrappling)
-            {
-                grapplingGun.Grapple();
-            }
             if (waveSize > 0)
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;

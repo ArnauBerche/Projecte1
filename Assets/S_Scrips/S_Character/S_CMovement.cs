@@ -87,12 +87,12 @@ public class S_CMovement : MonoBehaviour
         Buffer();            
         JumpChecks();
 
-        if((bufferCounter > 0f && (onGround || validCoyote) && !isJumping))
+        if(bufferCounter > 0f && ((onGround || validCoyote) && !isJumping))
         {
             limitJumpTime = 1;
             JumpHability();
         }
-        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping)) && !hook.isHooked)
+        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping)))
         {
             isJumping = false;
             rB.gravityScale = fallGravityLand;

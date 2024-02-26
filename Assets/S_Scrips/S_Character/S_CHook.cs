@@ -10,8 +10,7 @@ public class S_CHook : MonoBehaviour
     public GameObject mainCharacter;
 
     [Header("Layers Settings:")]
-    [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int grappableLayerNumber = 9;
+    [SerializeField] private int grappableLayerNumber = 6;
 
     [Header("Main Camera:")]
     public Camera m_camera;
@@ -31,12 +30,11 @@ public class S_CHook : MonoBehaviour
 
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
-    [SerializeField] private float maxDistance = 20;
+    [SerializeField] private float maxDistance = 5;
     [SerializeField] private float minDistance = 1;
 
     [Header("Launching:")]
     [SerializeField] public bool isHooked = false;
-    [SerializeField] private float launchSpeed = 10;
 
     [Header("No Launch To Point")]
 
@@ -53,6 +51,7 @@ public class S_CHook : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(isHooked);
         if (Input.GetButtonDown("Fire2"))
         {
             SetGrapplePoint();
@@ -81,48 +80,27 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
-        if(isHooked && moveChar.bufferCounter > 0f)
-        {
-            moveChar.limitJumpTime = 1;
-            moveChar.JumpHability();
-            isHooked = false;
-        }
 
-        if(transform.position.y <= grapplePoint.y)
-        {
-            /*
-            if(Input.GetAxisRaw("Vertical") == 1 && m_springJoint2D.distance > minDistance)
-            {
-                Debug.Log("Top");
-                m_springJoint2D.distance -= 30 * Time.deltaTime;
-            }
-            else if(Input.GetAxisRaw("Vertical") == -1 && m_springJoint2D.distance < maxDistance)
-            {
-                Debug.Log("down");
-                m_springJoint2D.distance += 30 * Time.deltaTime;
-            }
-            */
-        }
-        else if(transform.position.y >= grapplePoint.y + 2)
-        {
-            isHooked = false;
-        }
-
-        if(isHooked && m_springJoint2D.distance > maxDistance + 1)
-        {
-            isHooked = false;
-        }
-
-        if(!isHooked)
-        {
-            grappleRope.enabled = false;
-            m_springJoint2D.enabled = false;
-            m_springJoint2D.distance = 2;
-            
-        }
-        else
+        if(isHooked)
         {
             m_rigidbody.gravityScale = 5;
+            if(transform.position.y <= grapplePoint.y)
+            {
+                if(Input.GetAxisRaw("Vertical") > 0 && m_springJoint2D.distance > minDistance)
+                {
+                    Debug.Log("Top");
+                    m_springJoint2D.distance -= 5 * Time.deltaTime;
+                }
+                else if(Input.GetAxisRaw("Vertical") < 0 && m_springJoint2D.distance < maxDistance)
+                {
+                    Debug.Log("down");
+                    m_springJoint2D.distance += 5 * Time.deltaTime;
+                }
+            }
+            else if(transform.position.y >= grapplePoint.y + 2)
+            {
+                isHooked = false;
+            }
         }
     }
 
@@ -146,26 +124,25 @@ public class S_CHook : MonoBehaviour
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
 
         RaycastHit2D hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
-
-            if ((hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll ))
+        
+        if(hit.transform != null)
+        {
+            if ((hit.transform.gameObject.layer == grappableLayerNumber))
             {
                 if (Vector2.Distance(hit.point, firePoint.position) <= maxDistance || !hasMaxDistance)
                 {
                     grapplePoint = hit.point;
                     grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
                     grappleRope.enabled = true;
-                    isHooked = true;
+                    m_springJoint2D.distance = Vector2.Distance(grapplePoint,transform.position);
+                    m_springJoint2D.connectedAnchor = grapplePoint;
+                    m_springJoint2D.enabled = true;
                 }
 
-            }                
+            }             
+        }
+               
 
-    }
-
-    public void Grapple()
-    {
-        m_springJoint2D.autoConfigureDistance = true;
-        m_springJoint2D.connectedAnchor = grapplePoint;
-        m_springJoint2D.enabled = true;
     }
 
     private void OnDrawGizmosSelected()
