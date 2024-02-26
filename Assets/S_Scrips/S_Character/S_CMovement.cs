@@ -55,6 +55,7 @@ public class S_CMovement : MonoBehaviour
     private Rigidbody2D rB;
     private Animator animatorCharacter;
     public Text textDispaly;
+    public S_CHook hook;
 
     //GameStuff
     public bool onIce;
@@ -90,14 +91,14 @@ public class S_CMovement : MonoBehaviour
             limitJumpTime = 1;
             JumpHability();
         }
-        else if(!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping))
+        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping)) && !hook.isHooked)
         {
             isJumping = false;
             rB.gravityScale = fallGravityLand;
             limitJumpTime = 2;
         }
 
-        if(Input.GetButton("Crouch") && onGround && !isJumping)
+        if(Input.GetButton("Crouch") && onGround)
         {
             crouching = true;
         }
@@ -110,12 +111,12 @@ public class S_CMovement : MonoBehaviour
 
     private void MoveCharacter(){
         
-        if(onGround && !crouching)
+        if(!crouching)
         {
             speed = Input.GetButton("Run") ? sprintSpeed : walkSpeed;            
             maxSpeed = Input.GetButton("Run") ? maxSprintSpeed :maxWalkSpeed;
         }
-        else if(onGround && crouching)
+        else if(crouching && !isJumping)
         {
             speed = Input.GetButton("Crouch") ? crouchSpeed : walkSpeed;            
             maxSpeed = Input.GetButton("Crouch") ? maxCrouchSpeed :maxWalkSpeed;   
@@ -133,7 +134,7 @@ public class S_CMovement : MonoBehaviour
 
     public void ApplyDeacceleration()
     {
-        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching))
+        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching && !isJumping))
         {
             rB.drag = groundDeceleration; 
         } 
@@ -160,7 +161,7 @@ public class S_CMovement : MonoBehaviour
             isJumping = false;
         }
 
-        if (!isJumping && !onGround)
+        if ((!isJumping && !onGround) && !hook.isHooked)
         {
             if (validCoyote)
             {
@@ -174,7 +175,7 @@ public class S_CMovement : MonoBehaviour
 
         limitJumpTime -= 2 * Time.deltaTime; 
 
-        if(limitJumpTime < 0f && !validCoyote)
+        if((limitJumpTime < 0f && !validCoyote) && !hook.isHooked)
         {
             rB.gravityScale = fallGravityLand;
         }
@@ -248,8 +249,6 @@ public class S_CMovement : MonoBehaviour
         //Basic Animations
         if (direction != 0)
         {
-            animatorCharacter.SetBool("Static",false);
-            animatorCharacter.SetBool("Walk",true);
             if(direction < 0)
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
@@ -258,11 +257,51 @@ public class S_CMovement : MonoBehaviour
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
             }
+
+            if(speed == sprintSpeed)
+            {
+                animatorCharacter.SetBool("Runing",true);
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Walk",false);
+                animatorCharacter.SetBool("Crouching",false); 
+
+            }
+            else if(speed == crouchSpeed)
+            {
+                animatorCharacter.SetBool("Crouching",true);
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Walk",false);
+                animatorCharacter.SetBool("Runing",false);
+            }
+            else
+            {
+                animatorCharacter.SetBool("Walk",true);  
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Crouching",false);
+                animatorCharacter.SetBool("Runing",false); 
+            }
         }
         else
         {
+            animatorCharacter.SetBool("Runing",false); 
+            animatorCharacter.SetBool("Crouching",false); 
             animatorCharacter.SetBool("Walk",false);
             animatorCharacter.SetBool("Static",true);
-        }  
+        } 
+
+        if (onGround)
+        {
+            animatorCharacter.SetBool("Falling",false);
+            animatorCharacter.SetBool("Jumped",false);
+        }
+        else if(!isJumping && !onGround)
+        {
+            animatorCharacter.SetBool("Falling",true);
+            animatorCharacter.SetBool("Jumped",false);
+        }
+        else if(isJumping && !onGround)
+        {
+            animatorCharacter.SetBool("Jumped",true);
+        }
     }
 }

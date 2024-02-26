@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Tutorial_GrapplingRope : MonoBehaviour
+public class S_CRope : MonoBehaviour
 {
-    [Header("General Refernces:")]
-    public Tutorial_GrapplingGun grapplingGun;
+[Header("General Refernces:")]
+    public S_CHook grapplingGun;
     public LineRenderer m_lineRenderer;
 
     [Header("General Settings:")]
