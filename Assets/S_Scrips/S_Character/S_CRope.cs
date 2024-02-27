@@ -7,6 +7,7 @@ public class S_CRope : MonoBehaviour
 [Header("General Refernces:")]
     public S_CHook grapplingGun;
     public LineRenderer m_lineRenderer;
+    public GameObject hookSprite;
 
     [Header("General Settings:")]
     [SerializeField] private int percision = 40;
@@ -39,10 +40,11 @@ public class S_CRope : MonoBehaviour
 
     private void OnDisable()
     {
+        hookSprite.SetActive(false);
         m_lineRenderer.enabled = false;
     }
 
-    private void LinePointsToFirePoint()
+    public void LinePointsToFirePoint()
     {
         for (int i = 0; i < percision; i++)
         {
@@ -54,9 +56,14 @@ public class S_CRope : MonoBehaviour
     {
         moveTime += Time.deltaTime;
         DrawRope();
+        if(grapplingGun.isHooked)
+        {
+            grapplingGun.m_springJoint2D.enabled = true;
+            hookSprite.transform.rotation = Quaternion.Euler(0,0,grapplingGun.inpactRotation.x * 90 + (grapplingGun.inpactRotation.y > 0 ? grapplingGun.inpactRotation.y * 180 : grapplingGun.inpactRotation.y * 0));
+        }
     }
 
-    void DrawRope()
+    public void DrawRope()
     {
         if (!strightLine)
         {
@@ -75,15 +82,15 @@ public class S_CRope : MonoBehaviour
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;
                 DrawRopeWaves();
-                grapplingGun.isHooked = true;
+                
             }
             else
             {
                 waveSize = 0;
 
                 if (m_lineRenderer.positionCount != 2) { m_lineRenderer.positionCount = 2; }
-
                 DrawRopeNoWaves();
+                grapplingGun.isHooked = true;
             }
         }
     }
@@ -96,7 +103,9 @@ public class S_CRope : MonoBehaviour
             Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized * ropeAnimationCurve.Evaluate(delta) * waveSize;
             Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
             Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
-
+            hookSprite.SetActive(true);
+            hookSprite.transform.position = currentPosition;
+            hookSprite.transform.rotation = grapplingGun.gunPivot.rotation * Quaternion.Euler(0,0,-90);
             m_lineRenderer.SetPosition(i, currentPosition);
         }
     }

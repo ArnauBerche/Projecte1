@@ -9,6 +9,7 @@ public class S_CHook : MonoBehaviour
     public S_CMovement moveChar;
     public GameObject mainCharacter;
 
+
     [Header("Layers Settings:")]
     [SerializeField] private int grappableLayerNumber = 6;
 
@@ -33,6 +34,8 @@ public class S_CHook : MonoBehaviour
     [SerializeField] private float maxDistance = 5;
     [SerializeField] private float minDistance = 1;
 
+    [SerializeField] public Vector3 inpactRotation;
+
     [Header("Launching:")]
     [SerializeField] public bool isHooked = false;
 
@@ -47,6 +50,7 @@ public class S_CHook : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+        m_springJoint2D.frequency = 4;
     }
 
     private void Update()
@@ -80,9 +84,14 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
+        HookChecks();
+    }
 
+    public void HookChecks()
+    {
         if(isHooked)
         {
+            moveChar.parachute = false;
             m_rigidbody.gravityScale = 5;
             if(transform.position.y <= grapplePoint.y)
             {
@@ -97,14 +106,23 @@ public class S_CHook : MonoBehaviour
                     m_springJoint2D.distance += 5 * Time.deltaTime;
                 }
             }
-            else if(transform.position.y >= grapplePoint.y + 2)
+            else if(transform.position.y >= grapplePoint.y + 3)
             {
                 isHooked = false;
+                grappleRope.enabled = false;
+                m_springJoint2D.enabled = false;
             }
-        }
+
+            if(m_springJoint2D.distance >= maxDistance + 1)
+            {
+
+                m_springJoint2D.distance = 5;
+
+            }
+        }        
     }
 
-    void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
+    public void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
     {
         Vector3 distanceVector = lookPoint - gunPivot.position;
 
@@ -119,7 +137,7 @@ public class S_CHook : MonoBehaviour
         }
     }
 
-    void SetGrapplePoint()
+    public void SetGrapplePoint()
     {
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
 
@@ -136,7 +154,7 @@ public class S_CHook : MonoBehaviour
                     grappleRope.enabled = true;
                     m_springJoint2D.distance = Vector2.Distance(grapplePoint,transform.position);
                     m_springJoint2D.connectedAnchor = grapplePoint;
-                    m_springJoint2D.enabled = true;
+                    inpactRotation = hit.normal;
                 }
 
             }             
