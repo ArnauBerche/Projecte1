@@ -12,13 +12,11 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 40;
     [SerializeField] float sprintSpeed = 80;
         
-        [Header("")]
     public float maxSpeed;
     [SerializeField] float maxCrouchSpeed = 3.5f;
     [SerializeField] float maxWalkSpeed = 7;
     [SerializeField] float maxSprintSpeed = 14;
-        
-        [Header("")]        
+               
     [SerializeField] float groundDeceleration = 100;
     private float direction;    
     private float height;    
@@ -26,31 +24,26 @@ public class S_CMovement : MonoBehaviour
     private bool crouching;
 
 
-    [Header("")]
     [Header("Jump & Related:")]
 
     [SerializeField] private float jumpHeight = 20;
     [SerializeField] private float limitJumpTime = 1;
     
-        [Header("")]
     [SerializeField] private float fallGravityAir = 5;
     [SerializeField] private float fallGravityLand = 15;
 
-        [Header("")]
     [SerializeField] private float coyoteCount = 3f;
     [SerializeField] private float bufferTime = 0.2f;
     private float bufferCounter;
 
 
-    [Header("")]
     [Header("Parachute:")]
 
-    [SerializeField] private float parachuteDecendSpeed = 600;
+    [SerializeField] private float parachuteDecendSpeed;
     private float directionMultyplayer;
     private float fallSpeedMultiplayer;
 
 
-    [Header("")]
     [Header("Components:")]
 
     [SerializeField] private Rigidbody2D rB;
@@ -59,7 +52,6 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private S_CHook hook;
     
 
-    [Header("")]
     [Header("Game Checks")]
         
     [SerializeField] private bool onGround;
@@ -67,6 +59,9 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private bool validCoyote;
     [SerializeField] private bool onIce;
     [SerializeField] public bool parachute = false;
+    [SerializeField] private Vector2 lastPos;
+	[SerializeField] private Vector2 currentPos;
+    [SerializeField] private bool isLower;
 
 
     private void Awake()
@@ -85,6 +80,17 @@ public class S_CMovement : MonoBehaviour
     {
         MoveCharacter();
         ApplyDeacceleration();
+        LastPositionChecker();
+        directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+        fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
+        if(parachute)
+        {
+            if(isLower == true)
+            {
+                rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+            }
+            rB.gravityScale = fallGravityAir;
+        }
     }
 
     private void Update()
@@ -96,12 +102,16 @@ public class S_CMovement : MonoBehaviour
         Buffer();            
         JumpChecks();
 
-        if(bufferCounter > 0f && ((onGround || validCoyote) && !isJumping))
+        if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
         {
             limitJumpTime = 1;
+            hook.isHooked = false;
+            hook.grappleRope.enabled = false;
+            hook.m_springJoint2D.enabled = false;
             JumpHability();
+            
         }
-        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping)))
+        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
         {
             isJumping = false;
             rB.gravityScale = fallGravityLand;
@@ -129,18 +139,26 @@ public class S_CMovement : MonoBehaviour
             }
         }
 
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
-            fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
-
-        if(parachute)
-        {
-            rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer * Time.deltaTime);
-            Debug.Log(rB.velocity);
-            rB.gravityScale = fallGravityAir;
-        }
     }
 
-    public void MoveCharacter(){
+    public void LastPositionChecker()
+    {
+        currentPos = transform.position;
+
+		if (currentPos.y < lastPos.y) 
+        {
+			isLower = true;
+		} 
+        else 
+        {
+			isLower = false;
+		}
+
+		lastPos = currentPos;
+    }
+
+    public void MoveCharacter()
+    {
         
         if(!crouching)
         {

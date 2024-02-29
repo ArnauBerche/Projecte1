@@ -44,6 +44,7 @@ public class S_CHook : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+
     public Vector3 dirToMouse;
 
     private void Start()
@@ -56,11 +57,11 @@ public class S_CHook : MonoBehaviour
     private void Update()
     {
         Debug.Log(isHooked);
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
         }
-        else if (Input.GetButton("Fire2"))
+        else if (Input.GetButton("Fire1"))
         {
             if (grappleRope.enabled)
             { 
@@ -72,7 +73,7 @@ public class S_CHook : MonoBehaviour
                 RotateGun(mousePos, true); 
             }
         }
-        else if (Input.GetButtonUp("Fire2"))
+        else if (Input.GetButtonUp("Fire1"))
         {
             isHooked = false;
             grappleRope.enabled = false;
@@ -86,6 +87,7 @@ public class S_CHook : MonoBehaviour
 
         HookChecks();
     }
+
 
     public void HookChecks()
     {
