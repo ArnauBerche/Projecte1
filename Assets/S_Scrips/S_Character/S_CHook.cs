@@ -56,7 +56,6 @@ public class S_CHook : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(isHooked);
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
@@ -99,12 +98,10 @@ public class S_CHook : MonoBehaviour
             {
                 if(Input.GetAxisRaw("Vertical") > 0 && m_springJoint2D.distance > minDistance)
                 {
-                    Debug.Log("Top");
                     m_springJoint2D.distance -= 5 * Time.deltaTime;
                 }
                 else if(Input.GetAxisRaw("Vertical") < 0 && m_springJoint2D.distance < maxDistance)
                 {
-                    Debug.Log("down");
                     m_springJoint2D.distance += 5 * Time.deltaTime;
                 }
             }
