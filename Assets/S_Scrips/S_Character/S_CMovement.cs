@@ -26,9 +26,10 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Jump & Related:")]
 
-    [SerializeField] private float jumpHeight = 20;
-    [SerializeField] private float limitJumpTime = 1;
-    
+    [SerializeField] private float jumpHeight = 30;
+    [SerializeField] private float limitJumpTime;
+    [SerializeField] private float limitJumpTimeValue;
+
     [SerializeField] private float fallGravityAir = 5;
     [SerializeField] private float fallGravityLand = 15;
 
@@ -104,7 +105,7 @@ public class S_CMovement : MonoBehaviour
 
         if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
         {
-            limitJumpTime = 1;
+            limitJumpTime = limitJumpTimeValue;
             hook.isHooked = false;
             hook.grappleRope.enabled = false;
             hook.m_springJoint2D.enabled = false;
@@ -115,7 +116,7 @@ public class S_CMovement : MonoBehaviour
         {
             isJumping = false;
             rB.gravityScale = fallGravityLand;
-            limitJumpTime = 2;
+            limitJumpTime = limitJumpTimeValue * 2;
         }
 
         if(Input.GetButton("Crouch") && onGround)

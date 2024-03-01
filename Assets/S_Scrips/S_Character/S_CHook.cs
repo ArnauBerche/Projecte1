@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class S_CHook : MonoBehaviour
@@ -7,7 +8,9 @@ public class S_CHook : MonoBehaviour
     [Header("Scripts Ref:")]
     public S_CRope grappleRope;
     public S_CMovement moveChar;
+    public S_CCursor cursorScript;
     public GameObject mainCharacter;
+    public GameObject detectionCursor;
 
 
     [Header("Layers Settings:")]
@@ -33,6 +36,7 @@ public class S_CHook : MonoBehaviour
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistance = 5;
     [SerializeField] private float minDistance = 1;
+    [Range(0.1f, 2f)][SerializeField] private float cursorForgivenes = 0.1f;
 
     [SerializeField] public Vector3 inpactRotation;
 
@@ -52,10 +56,15 @@ public class S_CHook : MonoBehaviour
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
+        detectionCursor.transform.localScale = new Vector2(cursorForgivenes * 2, cursorForgivenes * 2);
     }
 
     private void Update()
     {
+        detectionCursor.transform.position = m_camera.ScreenToWorldPoint(Input.mousePosition);
+
+
+
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
@@ -138,7 +147,16 @@ public class S_CHook : MonoBehaviour
 
     public void SetGrapplePoint()
     {
-        Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
+        Vector2 distanceVector;
+        if (cursorScript.onStay)
+        {
+            distanceVector = cursorScript.miPoint - gunPivot.position;
+        }
+        else 
+        {
+            distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
+        }
+        
 
         RaycastHit2D hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
         
@@ -168,6 +186,7 @@ public class S_CHook : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(firePoint.position, maxDistance);
+            Gizmos.DrawWireSphere(m_camera.ScreenToWorldPoint(Input.mousePosition), cursorForgivenes);
         }
     }
 }
