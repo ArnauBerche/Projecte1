@@ -27,8 +27,8 @@ public class S_CMovement : MonoBehaviour
     [Header("Jump & Related:")]
 
     [SerializeField] private float jumpHeight = 30;
-    [SerializeField] private float limitJumpTime;
-    [SerializeField] private float limitJumpTimeValue;
+    [SerializeField] private float limitJumpTime = 1;
+    [SerializeField] private float limitJumpTimeValue = 1;
 
     [SerializeField] private float fallGravityAir = 5;
     [SerializeField] private float fallGravityLand = 15;
