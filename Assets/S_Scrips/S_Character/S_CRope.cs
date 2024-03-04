@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Tutorial_GrapplingRope : MonoBehaviour
+public class S_CRope : MonoBehaviour
 {
-    [Header("General Refernces:")]
-    public Tutorial_GrapplingGun grapplingGun;
+[Header("General Refernces:")]
+    public S_CHook grapplingGun;
     public LineRenderer m_lineRenderer;
+    public GameObject hookSprite;
 
     [Header("General Settings:")]
     [SerializeField] private int percision = 40;
@@ -21,8 +24,6 @@ public class Tutorial_GrapplingRope : MonoBehaviour
 
     float moveTime = 0;
 
-    [HideInInspector] public bool isGrappling = true;
-
     bool strightLine = true;
 
     private void OnEnable()
@@ -31,7 +32,7 @@ public class Tutorial_GrapplingRope : MonoBehaviour
         m_lineRenderer.positionCount = percision;
         waveSize = StartWaveSize;
         strightLine = false;
-
+        
         LinePointsToFirePoint();
 
         m_lineRenderer.enabled = true;
@@ -39,11 +40,11 @@ public class Tutorial_GrapplingRope : MonoBehaviour
 
     private void OnDisable()
     {
+        hookSprite.SetActive(false);
         m_lineRenderer.enabled = false;
-        isGrappling = false;
     }
 
-    private void LinePointsToFirePoint()
+    public void LinePointsToFirePoint()
     {
         for (int i = 0; i < percision; i++)
         {
@@ -55,9 +56,14 @@ public class Tutorial_GrapplingRope : MonoBehaviour
     {
         moveTime += Time.deltaTime;
         DrawRope();
+        if(grapplingGun.isHooked)
+        {
+            grapplingGun.m_springJoint2D.enabled = true;
+            hookSprite.transform.rotation = Quaternion.Euler(0,0,grapplingGun.inpactRotation.x * 90 + (grapplingGun.inpactRotation.y > 0 ? grapplingGun.inpactRotation.y * 180 : grapplingGun.inpactRotation.y * 0));
+        }
     }
 
-    void DrawRope()
+    public void DrawRope()
     {
         if (!strightLine)
         {
@@ -72,23 +78,19 @@ public class Tutorial_GrapplingRope : MonoBehaviour
         }
         else
         {
-            if (!isGrappling)
-            {
-                grapplingGun.Grapple();
-                isGrappling = true;
-            }
             if (waveSize > 0)
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;
                 DrawRopeWaves();
+                
             }
             else
             {
                 waveSize = 0;
 
                 if (m_lineRenderer.positionCount != 2) { m_lineRenderer.positionCount = 2; }
-
                 DrawRopeNoWaves();
+                grapplingGun.isHooked = true;
             }
         }
     }
@@ -101,7 +103,9 @@ public class Tutorial_GrapplingRope : MonoBehaviour
             Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized * ropeAnimationCurve.Evaluate(delta) * waveSize;
             Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
             Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
-
+            hookSprite.SetActive(true);
+            hookSprite.transform.position = currentPosition;
+            hookSprite.transform.rotation = grapplingGun.gunPivot.rotation * Quaternion.Euler(0,0,-90);
             m_lineRenderer.SetPosition(i, currentPosition);
         }
     }

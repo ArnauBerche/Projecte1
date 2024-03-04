@@ -5,59 +5,65 @@ using UnityEngine.UI;
 
 public class S_CMovement : MonoBehaviour
 {
-
-    //Movement
-     
-        //BaseSpeeds
-    public float speed;
-    float crouchSpeed = 20;
-    float walkSpeed = 40;
-    float sprintSpeed = 80;
-
-        //Max Speeds
-    public float maxSpeed;
-    float maxCrouchSpeed = 3.5f;
-    float maxWalkSpeed = 7;
-    float maxSprintSpeed = 14;
+    [Header("Movement:")]
         
-        //Deceleration
-    float groundDeceleration = 100;
-    public float direction;    
+    public float speed;
+    [SerializeField] float crouchSpeed = 20;
+    [SerializeField] float walkSpeed = 40;
+    [SerializeField] float sprintSpeed = 80;
+        
+    public float maxSpeed;
+    [SerializeField] float maxCrouchSpeed = 3.5f;
+    [SerializeField] float maxWalkSpeed = 7;
+    [SerializeField] float maxSprintSpeed = 14;
+               
+    [SerializeField] float groundDeceleration = 100;
+    private float direction;    
+    private float height;    
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
     private bool crouching;
 
-    //Jump
 
-        //Base Height1200
-    private float jumpHeight = 20;
+    [Header("Jump & Related:")]
 
-        //Fall Speed
-    private float fallGravityAir = 5;
-    private float fallGravityLand = 20;
+    [SerializeField] private float jumpHeight = 30;
+    [SerializeField] private float limitJumpTime;
+    [SerializeField] private float limitJumpTimeValue;
 
-        //Holding Jump
-    public float limitJumpTime = 1;
+    [SerializeField] private float fallGravityAir = 5;
+    [SerializeField] private float fallGravityLand = 15;
 
-        //Coyote
-    public bool isJumping;
-    public float coyoteCount = 3f;
-    public bool validCoyote;
-
-    //Input Buffer
-    private float bufferTime = 0.2f;
-    public float bufferCounter;
+    [SerializeField] private float coyoteCount = 3f;
+    [SerializeField] private float bufferTime = 0.2f;
+    private float bufferCounter;
 
 
-    //Groud Checks
-    public bool onGround;
+    [Header("Parachute:")]
 
-    //Components
-    private Rigidbody2D rB;
-    private Animator animatorCharacter;
-    public Text textDispaly;
+    [SerializeField] private float parachuteDecendSpeed;
+    private float directionMultyplayer;
+    private float fallSpeedMultiplayer;
 
-    //GameStuff
-    public bool onIce;
+
+    [Header("Components:")]
+
+    [SerializeField] private Rigidbody2D rB;
+    [SerializeField] private Animator animatorCharacter;
+    [SerializeField] private Text textDispaly;
+    [SerializeField] private S_CHook hook;
+    
+
+    [Header("Game Checks")]
+        
+    [SerializeField] private bool onGround;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool validCoyote;
+    [SerializeField] private bool onIce;
+    [SerializeField] public bool parachute = false;
+    [SerializeField] private Vector2 lastPos;
+	[SerializeField] private Vector2 currentPos;
+    [SerializeField] private bool isLower;
+
 
     private void Awake()
     {   
@@ -67,6 +73,7 @@ public class S_CMovement : MonoBehaviour
 
     public Vector2 GetInput()
     {
+        
         return new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
     }
 
@@ -74,6 +81,17 @@ public class S_CMovement : MonoBehaviour
     {
         MoveCharacter();
         ApplyDeacceleration();
+        LastPositionChecker();
+        directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+        fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
+        if(parachute)
+        {
+            if(isLower == true)
+            {
+                rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+            }
+            rB.gravityScale = fallGravityAir;
+        }
     }
 
     private void Update()
@@ -85,19 +103,23 @@ public class S_CMovement : MonoBehaviour
         Buffer();            
         JumpChecks();
 
-        if((bufferCounter > 0f && (onGround || validCoyote) && !isJumping))
+        if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
         {
-            limitJumpTime = 1;
+            limitJumpTime = limitJumpTimeValue;
+            hook.isHooked = false;
+            hook.grappleRope.enabled = false;
+            hook.m_springJoint2D.enabled = false;
             JumpHability();
+            
         }
-        else if(!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping))
+        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
         {
             isJumping = false;
             rB.gravityScale = fallGravityLand;
-            limitJumpTime = 2;
+            limitJumpTime = limitJumpTimeValue * 2;
         }
 
-        if(Input.GetButton("Crouch") && onGround && !isJumping)
+        if(Input.GetButton("Crouch") && onGround)
         {
             crouching = true;
         }
@@ -105,23 +127,53 @@ public class S_CMovement : MonoBehaviour
         {
             crouching = false;
         }
-        
+
+        if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
+        {
+            if(parachute)
+            {
+                parachute = false;
+            }
+            else
+            {
+                parachute = true;
+            }
+        }
+
     }
 
-    private void MoveCharacter(){
+    public void LastPositionChecker()
+    {
+        currentPos = transform.position;
+
+		if (currentPos.y < lastPos.y) 
+        {
+			isLower = true;
+		} 
+        else 
+        {
+			isLower = false;
+		}
+
+		lastPos = currentPos;
+    }
+
+    public void MoveCharacter()
+    {
         
-        if(onGround && !crouching)
+        if(!crouching)
         {
             speed = Input.GetButton("Run") ? sprintSpeed : walkSpeed;            
             maxSpeed = Input.GetButton("Run") ? maxSprintSpeed :maxWalkSpeed;
         }
-        else if(onGround && crouching)
+        else if(crouching && !isJumping)
         {
             speed = Input.GetButton("Crouch") ? crouchSpeed : walkSpeed;            
             maxSpeed = Input.GetButton("Crouch") ? maxCrouchSpeed :maxWalkSpeed;   
         }
 
         direction = GetInput().x;
+        height = GetInput().y;
 
         rB.AddForce(new Vector2(direction, 0) * speed);
 
@@ -133,7 +185,7 @@ public class S_CMovement : MonoBehaviour
 
     public void ApplyDeacceleration()
     {
-        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching))
+        if((Mathf.Abs(direction) < 0.2f && onGround && !isJumping && !onIce) || (Mathf.Abs(direction) < 0.2f && crouching && !isJumping))
         {
             rB.drag = groundDeceleration; 
         } 
@@ -150,17 +202,18 @@ public class S_CMovement : MonoBehaviour
         Jump();
     }
 
-    void JumpChecks()
+    public void JumpChecks()
     {
         
         if (onGround)
         {
+            parachute = false;
             rB.gravityScale = fallGravityLand;
             coyoteCount = 1;
             isJumping = false;
         }
 
-        if (!isJumping && !onGround)
+        if ((!isJumping && !onGround) && !hook.isHooked)
         {
             if (validCoyote)
             {
@@ -174,7 +227,7 @@ public class S_CMovement : MonoBehaviour
 
         limitJumpTime -= 2 * Time.deltaTime; 
 
-        if(limitJumpTime < 0f && !validCoyote)
+        if((limitJumpTime < 0f && !validCoyote) && !hook.isHooked)
         {
             rB.gravityScale = fallGravityLand;
         }
@@ -210,12 +263,13 @@ public class S_CMovement : MonoBehaviour
             bufferCounter -= Time.deltaTime;
         }
     }
-    void OnCollisionStay2D(Collision2D col) 
+    public void OnCollisionStay2D(Collision2D col) 
     {
         if (col.collider != null)
         {
             foreach (ContactPoint2D hitpos in col.contacts)
             {
+                parachute = false;
                 if (hitpos.normal.y > 0)
                 {
                     onGround = true;
@@ -238,7 +292,7 @@ public class S_CMovement : MonoBehaviour
 
         
     }
-    void OnCollisionExit2D(Collision2D col)
+    public void OnCollisionExit2D(Collision2D col)
     {
         onGround = false;
     }
@@ -248,8 +302,6 @@ public class S_CMovement : MonoBehaviour
         //Basic Animations
         if (direction != 0)
         {
-            animatorCharacter.SetBool("Static",false);
-            animatorCharacter.SetBool("Walk",true);
             if(direction < 0)
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
@@ -258,11 +310,51 @@ public class S_CMovement : MonoBehaviour
             {
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
             }
+
+            if(speed == sprintSpeed)
+            {
+                animatorCharacter.SetBool("Runing",true);
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Walk",false);
+                animatorCharacter.SetBool("Crouching",false); 
+
+            }
+            else if(speed == crouchSpeed)
+            {
+                animatorCharacter.SetBool("Crouching",true);
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Walk",false);
+                animatorCharacter.SetBool("Runing",false);
+            }
+            else
+            {
+                animatorCharacter.SetBool("Walk",true);  
+                animatorCharacter.SetBool("Static",false);
+                animatorCharacter.SetBool("Crouching",false);
+                animatorCharacter.SetBool("Runing",false); 
+            }
         }
         else
         {
+            animatorCharacter.SetBool("Runing",false); 
+            animatorCharacter.SetBool("Crouching",false); 
             animatorCharacter.SetBool("Walk",false);
             animatorCharacter.SetBool("Static",true);
-        }  
+        } 
+
+        if (onGround)
+        {
+            animatorCharacter.SetBool("Falling",false);
+            animatorCharacter.SetBool("Jumped",false);
+        }
+        else if(!isJumping && !onGround)
+        {
+            animatorCharacter.SetBool("Falling",true);
+            animatorCharacter.SetBool("Jumped",false);
+        }
+        else if(isJumping && !onGround)
+        {
+            animatorCharacter.SetBool("Jumped",true);
+        }
     }
 }
