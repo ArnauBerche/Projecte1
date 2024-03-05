@@ -51,8 +51,9 @@ public class S_CHook : MonoBehaviour
 
     public Vector3 dirToMouse;
 
-    private void Start()
+    private void Awake()
     {
+        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
