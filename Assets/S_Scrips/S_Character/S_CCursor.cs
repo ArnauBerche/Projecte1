@@ -14,16 +14,7 @@ public class S_CCursor : MonoBehaviour
     public Vector3 miPoint;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnTriggerStay2D(Collider2D collider)
     {
         onStay = true;
@@ -33,7 +24,6 @@ public class S_CCursor : MonoBehaviour
             closePointToMain = collider.ClosestPoint(closePointToCenter);
             
             miPoint = closePointToMain;
-            Debug.Log(miPoint);
         }  
     }
     public void OnTriggerExit2D(Collider2D collider)

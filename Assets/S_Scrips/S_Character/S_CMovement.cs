@@ -49,7 +49,6 @@ public class S_CMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rB;
     [SerializeField] private Animator animatorCharacter;
-    [SerializeField] private Text textDispaly;
     [SerializeField] private S_CHook hook;
     
 
@@ -69,6 +68,7 @@ public class S_CMovement : MonoBehaviour
     {   
         rB = GetComponent<Rigidbody2D>();
         animatorCharacter = GetComponent<Animator>();
+        hook = GetComponent<S_CHook>();
     }
 
     public Vector2 GetInput()
