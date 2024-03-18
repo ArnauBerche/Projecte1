@@ -24,7 +24,7 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Jump & Related:")]
 
-    [SerializeField] private float jumpHeight = 30;
+    [SerializeField] private float jumpHeight = 20;
     [SerializeField] private float limitJumpTime = 1;
     [SerializeField] private float limitJumpTimeValue = 1;
 
@@ -61,6 +61,12 @@ public class S_CMovement : MonoBehaviour
 	[SerializeField] private Vector2 currentPos;
     [SerializeField] private bool isLower;
 
+    [Header("Death")]
+    [SerializeField] private bool isDead;
+    [SerializeField] private bool movementEnabled = true;
+    [SerializeField] public Vector3 respawnPoint;
+    [SerializeField] private int deadtime = 1;
+
 
     private void Awake()
     {   
@@ -78,23 +84,26 @@ public class S_CMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Process on a fixed Update all phisics related stuf
-        MoveCharacter();
-        ApplyDeacceleration();
-        LastPositionChecker();
-
-        directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
-        fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
-        
-        //Parachute falling speed diference
-        //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
-        if(parachute)
+        if(movementEnabled)
         {
-            if(isLower == true)
+            // Process on a fixed Update all phisics related stuf
+            MoveCharacter();
+            ApplyDeacceleration();
+            LastPositionChecker();
+
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+            fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
+            
+            //Parachute falling speed diference
+            //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
+            if(parachute)
             {
-                rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                if(isLower == true)
+                {
+                    rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                }
+                rB.gravityScale = fallGravityAir;
             }
-            rB.gravityScale = fallGravityAir;
         }
     }
 
@@ -102,59 +111,67 @@ public class S_CMovement : MonoBehaviour
     {
         //Check 4 Animations
         Animations();
-
-        //JumpRelated
-        Coyote();
-        Buffer();            
-        JumpChecks();
-
-        // When character is not in the air and buffer is runing chech if player has a possible jumc condition, if true jumps.
-        if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
+        if(movementEnabled)
         {
-            //We set the amount of time character will jump and if needed we dissabled the hook.
-            limitJumpTime = limitJumpTimeValue;
-            if (hook.isHooked) 
+            hook.enabled = true;
+            //JumpRelated
+            Coyote();
+            Buffer();            
+            JumpChecks();
+
+            // When character is not in the air and buffer is runing chech if player has a possible jumc condition, if true jumps.
+            if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
             {
-                hook.isHooked = false;
-                hook.grappleRope.enabled = false;
-                hook.m_springJoint2D.enabled = false;
+                //We set the amount of time character will jump and if needed we dissabled the hook.
+                limitJumpTime = limitJumpTimeValue;
+                if (hook.isHooked) 
+                {
+                    hook.isHooked = false;
+                    hook.grappleRope.enabled = false;
+                    hook.m_springJoint2D.enabled = false;
+                }
+
+                //Jump
+                JumpHability();
+                
+            }
+            //If character stops pressing jump or any of the jump possibilitis are able character stops the jump.
+            else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
+            {
+                //The player is no longer jumping, gravity is set to fall and jumptime resets.
+                isJumping = false;
+                rB.gravityScale = fallGravityLand;
+                limitJumpTime = limitJumpTimeValue * 2;
             }
 
-            //Jump
-            JumpHability();
-            
-        }
-        //If character stops pressing jump or any of the jump possibilitis are able character stops the jump.
-        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
-        {
-            //The player is no longer jumping, gravity is set to fall and jumptime resets.
-            isJumping = false;
-            rB.gravityScale = fallGravityLand;
-            limitJumpTime = limitJumpTimeValue * 2;
-        }
-
-        // When "ctrl" is pressed and the player is on ground the player can crouch
-        if(Input.GetButton("Crouch") && onGround)
-        {
-            crouching = true;
-        }
-        else
-        {
-            crouching = false;
-        }
-
-        //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
-        if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
-        {
-            if(parachute)
+            // When "ctrl" is pressed and the player is on ground the player can crouch
+            if(Input.GetButton("Crouch") && onGround)
             {
-                parachute = false;
+                crouching = true;
             }
             else
             {
-                parachute = true;
+                crouching = false;
+            }
+
+            //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
+            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
+            {
+                if(parachute)
+                {
+                    parachute = false;
+                }
+                else
+                {
+                    parachute = true;
+                }
             }
         }
+        else
+        {
+            hook.enabled = false;
+        }
+        
 
     }
 
@@ -293,6 +310,33 @@ public class S_CMovement : MonoBehaviour
             bufferCounter -= Time.deltaTime;
         }
     }
+    public void OnTriggerEnter2D(Collider2D Trig)
+    {
+        if(Trig.gameObject.tag == "Death")
+        {
+            DeadFunction();
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D Trig)
+    {
+        isDead = false;
+        movementEnabled = true;
+    }
+
+    void DeadFunction()
+    {
+        isDead = true;
+        movementEnabled = false;
+        Invoke("DeadFunction", deadtime);
+
+    }
+
+    void Respawn()
+    {
+        transform.position = respawnPoint;
+    }
+
     public void OnCollisionStay2D(Collision2D col) 
     {
         if (col.collider != null)
@@ -318,9 +362,7 @@ public class S_CMovement : MonoBehaviour
                     rB.gravityScale = fallGravityLand;
                 }
             }
-        }
-
-        
+        } 
     }
     public void OnCollisionExit2D(Collision2D col)
     {
@@ -330,6 +372,14 @@ public class S_CMovement : MonoBehaviour
     public void Animations()
     {
         //Basic Animations
+        if(isDead)
+        {
+            animatorCharacter.SetBool("Dead",true);
+        }
+        else
+        {
+            animatorCharacter.SetBool("Dead",false);
+        }
         if (direction != 0)
         {
             if(direction < 0)

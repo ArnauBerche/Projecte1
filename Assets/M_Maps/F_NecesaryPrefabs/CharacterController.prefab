@@ -679,13 +679,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  crouchSpeed: 20
-  walkSpeed: 40
-  sprintSpeed: 80
+  crouchSpeed: 40
+  walkSpeed: 80
   maxSpeed: 0
-  maxCrouchSpeed: 3.5
-  maxWalkSpeed: 7
-  maxSprintSpeed: 14
+  maxCrouchSpeed: 7
+  maxWalkSpeed: 14
   groundDeceleration: 100
   jumpHeight: 20
   limitJumpTime: 1
@@ -697,7 +695,6 @@ MonoBehaviour:
   parachuteDecendSpeed: 5
   rB: {fileID: 3678511664270245110}
   animatorCharacter: {fileID: 5499002173733988841}
-  textDispaly: {fileID: 0}
   hook: {fileID: 382253655080626725}
   onGround: 0
   isJumping: 0
