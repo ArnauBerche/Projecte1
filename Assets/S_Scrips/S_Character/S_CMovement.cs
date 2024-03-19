@@ -65,7 +65,7 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private bool isDead;
     [SerializeField] private bool movementEnabled = true;
     [SerializeField] public Vector3 respawnPoint;
-    [SerializeField] private int deadtime = 1;
+    [SerializeField] private float deadtime = 1;
 
 
     private void Awake()
@@ -318,23 +318,21 @@ public class S_CMovement : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit2D(Collider2D Trig)
-    {
-        isDead = false;
-        movementEnabled = true;
-    }
-
     void DeadFunction()
     {
         isDead = true;
         movementEnabled = false;
-        Invoke("DeadFunction", deadtime);
+        rB.drag = 100;
+        rB.gravityScale = 0;
+        Invoke("Respawn", deadtime);
 
     }
 
     void Respawn()
     {
         transform.position = respawnPoint;
+        isDead = false;
+        movementEnabled = true;
     }
 
     public void OnCollisionStay2D(Collision2D col) 
@@ -372,59 +370,52 @@ public class S_CMovement : MonoBehaviour
     public void Animations()
     {
         //Basic Animations
-        if(isDead)
+
+        if (direction < 0)
         {
-            animatorCharacter.SetBool("Dead",true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
-            animatorCharacter.SetBool("Dead",false);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-        if (direction != 0)
+
+
+        if (isDead)
         {
-            if(direction < 0)
+
+        }
+        else if (hook.isHooked)
+        {
+            animatorCharacter.Play("Grab");
+        }
+        else if (parachute) 
+        {
+            animatorCharacter.Play("Paravela");
+        }
+        else if (!isJumping && !onGround)
+        {
+            animatorCharacter.Play("ClimberFall");
+        }
+        else if (isJumping && !onGround)
+        {
+            animatorCharacter.Play("ClimberJump");
+        }
+        else if (direction != 0)
+        {
+            if (speed == crouchSpeed)
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                animatorCharacter.Play("ClimberCrouch");
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            }
-
-            if(speed == crouchSpeed)
-            {
-                animatorCharacter.SetBool("Crouching",true);
-                animatorCharacter.SetBool("Static",false);
-                animatorCharacter.SetBool("Walk",false);
-
-            }
-            else
-            {
-                animatorCharacter.SetBool("Walk",true);  
-                animatorCharacter.SetBool("Static",false);
-                animatorCharacter.SetBool("Crouching",false);
+                animatorCharacter.Play("ClimberWalk");
             }
         }
         else
         {
-            animatorCharacter.SetBool("Crouching",false); 
-            animatorCharacter.SetBool("Walk",false);
-            animatorCharacter.SetBool("Static",true);
+            animatorCharacter.Play("Idle");
         } 
-
-        if (onGround)
-        {
-            animatorCharacter.SetBool("Falling",false);
-            animatorCharacter.SetBool("Jumped",false);
-        }
-        else if(!isJumping && !onGround)
-        {
-            animatorCharacter.SetBool("Falling",true);
-            animatorCharacter.SetBool("Jumped",false);
-        }
-        else if(isJumping && !onGround)
-        {
-            animatorCharacter.SetBool("Jumped",true);
-        }
     }
+
 }
