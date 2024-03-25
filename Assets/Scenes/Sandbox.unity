@@ -33466,6 +33466,10 @@ PrefabInstance:
       propertyPath: maxCrouchSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3678511664270245110, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5384230244347458559, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.2
@@ -33473,6 +33477,14 @@ PrefabInstance:
     - target: {fileID: 5384230244347458559, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_LocalPosition.y
       value: -6.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672416948988819727, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672416948988819727, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: m_FlipY
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8275225762589261345, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_LocalPosition.x

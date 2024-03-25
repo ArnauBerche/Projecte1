@@ -48,7 +48,7 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rB;
     [SerializeField] private Animator animatorCharacter;
     [SerializeField] private S_CHook hook;
-    
+
 
     [Header("Game Checks")]
         
@@ -107,6 +107,19 @@ public class S_CMovement : MonoBehaviour
         }
     }
 
+    void AjustGameRotation() 
+    {
+        if (hook.isHooked)
+        {
+            rB.constraints = RigidbodyConstraints2D.None;
+        }
+        else 
+        {
+            rB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
     private void Update()
     {
         //Check 4 Animations
@@ -118,9 +131,10 @@ public class S_CMovement : MonoBehaviour
             Coyote();
             Buffer();            
             JumpChecks();
+            AjustGameRotation();
 
             // When character is not in the air and buffer is runing chech if player has a possible jumc condition, if true jumps.
-            if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
+            if (bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
             {
                 //We set the amount of time character will jump and if needed we dissabled the hook.
                 limitJumpTime = limitJumpTimeValue;
@@ -242,6 +256,7 @@ public class S_CMovement : MonoBehaviour
         //We are jumping and change the gravity to air
         isJumping = true;
         rB.gravityScale = fallGravityAir;
+        AjustGameRotation();
         Jump();
     }
 
