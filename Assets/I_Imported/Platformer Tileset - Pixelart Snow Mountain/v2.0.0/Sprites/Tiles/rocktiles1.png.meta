@@ -3,7 +3,7 @@ guid: e66c6589c4c2c694786fc6c17e7c1501
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2226,109 +2233,108 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rocktiles1_22: 208942309
-      rocktiles1_62: 17453552
-      rocktiles1_79: 1114375555
-      rocktiles1_98: -127332304
-      rocktiles1_9: 228336277
-      rocktiles1_7: 1979159870
-      rocktiles1_60: 729605829
-      rocktiles1_61: 118704062
-      rocktiles1_27: -1682153284
-      rocktiles1_69: 339127239
-      rocktiles1_12: 411908956
-      rocktiles1_76: -248410311
-      rocktiles1_97: 1340490857
-      rocktiles1_66: -1605949539
-      rocktiles1_3: -1183505945
-      rocktiles1_74: 113570812
-      rocktiles1_20: 1455441910
-      rocktiles1_87: -1263140063
-      rocktiles1_46: -1293496279
-      rocktiles1_89: 1679903383
-      rocktiles1_55: -171278690
-      rocktiles1_37: 524738014
-      rocktiles1_30: 1605270838
-      rocktiles1_72: 83798674
-      rocktiles1_80: 807578643
-      rocktiles1_17: 390410813
-      rocktiles1_56: 490278079
-      rocktiles1_77: -476117956
-      rocktiles1_90: -736006423
-      rocktiles1_8: -354208304
-      rocktiles1_67: -2036266109
-      rocktiles1_1: 982547576
-      rocktiles1_78: 822578584
-      rocktiles1_23: 372052222
-      rocktiles1_5: 114045408
-      rocktiles1_35: -646480478
-      rocktiles1_75: -615661049
-      rocktiles1_70: -1025433143
-      rocktiles1_63: -1453894753
-      rocktiles1_85: -1586636190
-      rocktiles1_31: 370770053
-      rocktiles1_53: 678284956
-      rocktiles1_2: 262547723
-      rocktiles1_96: -1882752093
-      rocktiles1_51: 357978826
-      rocktiles1_47: 173993875
-      rocktiles1_10: -1998367512
-      rocktiles1_41: 1403657047
-      rocktiles1_44: 692252978
-      rocktiles1_18: -352067308
-      rocktiles1_14: 552614742
-      rocktiles1_71: -28960186
-      rocktiles1_84: -1218528730
       rocktiles1_0: 1367571923
-      rocktiles1_94: 1454316109
-      rocktiles1_19: 1893650886
-      rocktiles1_6: 886176198
-      rocktiles1_29: -1033608489
-      rocktiles1_49: 979991174
-      rocktiles1_83: -780815008
-      rocktiles1_42: 1800853640
-      rocktiles1_73: 221591779
-      rocktiles1_57: 1464968280
-      rocktiles1_32: 903190122
+      rocktiles1_1: 982547576
+      rocktiles1_10: -1998367512
       rocktiles1_11: 85931955
+      rocktiles1_12: 411908956
+      rocktiles1_13: -992981691
+      rocktiles1_14: 552614742
+      rocktiles1_15: 1025226133
+      rocktiles1_16: 592358953
+      rocktiles1_17: 390410813
+      rocktiles1_18: -352067308
+      rocktiles1_19: 1893650886
+      rocktiles1_2: 262547723
+      rocktiles1_20: 1455441910
+      rocktiles1_21: -561354632
+      rocktiles1_22: 208942309
+      rocktiles1_23: 372052222
       rocktiles1_24: 793062690
-      rocktiles1_68: -534008521
+      rocktiles1_25: -615998614
+      rocktiles1_26: 1241238116
+      rocktiles1_27: -1682153284
+      rocktiles1_28: -2016127900
+      rocktiles1_29: -1033608489
+      rocktiles1_3: -1183505945
+      rocktiles1_30: 1605270838
+      rocktiles1_31: 370770053
+      rocktiles1_32: 903190122
       rocktiles1_33: -568006184
-      rocktiles1_59: 1250699238
-      rocktiles1_54: -1657546132
-      rocktiles1_99: 548450360
-      rocktiles1_64: -3604129
+      rocktiles1_34: -1004965134
+      rocktiles1_35: -646480478
+      rocktiles1_36: 774400923
+      rocktiles1_37: 524738014
+      rocktiles1_38: 212510162
+      rocktiles1_39: 1531771921
       rocktiles1_4: 81189019
       rocktiles1_40: 1956754604
-      rocktiles1_91: -68483852
-      rocktiles1_58: 1421327013
-      rocktiles1_52: -832137858
-      rocktiles1_81: -1421599797
-      rocktiles1_26: 1241238116
-      rocktiles1_95: -209301882
-      rocktiles1_65: 1003832356
-      rocktiles1_93: 1099603806
-      rocktiles1_15: 1025226133
-      rocktiles1_92: -1711063413
-      rocktiles1_45: -1193387492
-      rocktiles1_86: -1797264456
-      rocktiles1_50: 1985393451
-      rocktiles1_16: 592358953
-      rocktiles1_48: 298351122
-      rocktiles1_13: -992981691
-      rocktiles1_25: -615998614
+      rocktiles1_41: 1403657047
+      rocktiles1_42: 1800853640
       rocktiles1_43: -696629936
-      rocktiles1_38: 212510162
-      rocktiles1_28: -2016127900
-      rocktiles1_39: 1531771921
-      rocktiles1_21: -561354632
-      rocktiles1_88: 1042405161
-      rocktiles1_34: -1004965134
+      rocktiles1_44: 692252978
+      rocktiles1_45: -1193387492
+      rocktiles1_46: -1293496279
+      rocktiles1_47: 173993875
+      rocktiles1_48: 298351122
+      rocktiles1_49: 979991174
+      rocktiles1_5: 114045408
+      rocktiles1_50: 1985393451
+      rocktiles1_51: 357978826
+      rocktiles1_52: -832137858
+      rocktiles1_53: 678284956
+      rocktiles1_54: -1657546132
+      rocktiles1_55: -171278690
+      rocktiles1_56: 490278079
+      rocktiles1_57: 1464968280
+      rocktiles1_58: 1421327013
+      rocktiles1_59: 1250699238
+      rocktiles1_6: 886176198
+      rocktiles1_60: 729605829
+      rocktiles1_61: 118704062
+      rocktiles1_62: 17453552
+      rocktiles1_63: -1453894753
+      rocktiles1_64: -3604129
+      rocktiles1_65: 1003832356
+      rocktiles1_66: -1605949539
+      rocktiles1_67: -2036266109
+      rocktiles1_68: -534008521
+      rocktiles1_69: 339127239
+      rocktiles1_7: 1979159870
+      rocktiles1_70: -1025433143
+      rocktiles1_71: -28960186
+      rocktiles1_72: 83798674
+      rocktiles1_73: 221591779
+      rocktiles1_74: 113570812
+      rocktiles1_75: -615661049
+      rocktiles1_76: -248410311
+      rocktiles1_77: -476117956
+      rocktiles1_78: 822578584
+      rocktiles1_79: 1114375555
+      rocktiles1_8: -354208304
+      rocktiles1_80: 807578643
+      rocktiles1_81: -1421599797
       rocktiles1_82: 1906003466
-      rocktiles1_36: 774400923
-  spritePackingTag: 
+      rocktiles1_83: -780815008
+      rocktiles1_84: -1218528730
+      rocktiles1_85: -1586636190
+      rocktiles1_86: -1797264456
+      rocktiles1_87: -1263140063
+      rocktiles1_88: 1042405161
+      rocktiles1_89: 1679903383
+      rocktiles1_9: 228336277
+      rocktiles1_90: -736006423
+      rocktiles1_91: -68483852
+      rocktiles1_92: -1711063413
+      rocktiles1_93: 1099603806
+      rocktiles1_94: 1454316109
+      rocktiles1_95: -209301882
+      rocktiles1_96: -1882752093
+      rocktiles1_97: 1340490857
+      rocktiles1_98: -127332304
+      rocktiles1_99: 548450360
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

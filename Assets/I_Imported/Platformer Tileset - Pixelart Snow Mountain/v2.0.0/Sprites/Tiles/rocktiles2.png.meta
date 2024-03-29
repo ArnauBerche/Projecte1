@@ -3,7 +3,7 @@ guid: e6ad77f93ba6870418886f78d525b957
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2226,109 +2233,108 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rocktiles2_6: -1229287259
-      rocktiles2_7: 1722287179
-      rocktiles2_51: 1251730545
-      rocktiles2_37: 364467595
-      rocktiles2_20: -2030345706
-      rocktiles2_68: 1367553118
-      rocktiles2_82: 132518953
-      rocktiles2_12: -1472580598
-      rocktiles2_45: -865414774
-      rocktiles2_39: -455076397
-      rocktiles2_79: -1316579814
-      rocktiles2_29: 820479592
-      rocktiles2_76: 130025987
-      rocktiles2_99: -1454598195
-      rocktiles2_15: -1289189966
-      rocktiles2_86: 1858962386
-      rocktiles2_58: 1597332054
-      rocktiles2_56: 1144864236
-      rocktiles2_64: -1353316658
-      rocktiles2_18: 648270203
-      rocktiles2_70: 332350086
-      rocktiles2_88: -471403670
-      rocktiles2_13: -583822301
-      rocktiles2_11: 1607742755
-      rocktiles2_69: -189963657
       rocktiles2_0: -1068398314
-      rocktiles2_30: -868606688
-      rocktiles2_96: 288667065
-      rocktiles2_89: 536372929
-      rocktiles2_35: -102654602
-      rocktiles2_81: 709340847
-      rocktiles2_90: -677464954
-      rocktiles2_48: 1194136009
-      rocktiles2_91: 790857798
-      rocktiles2_66: 535645270
-      rocktiles2_63: 798535730
-      rocktiles2_60: 1487992415
-      rocktiles2_65: -923319693
-      rocktiles2_71: -1094224056
       rocktiles2_1: 378291321
+      rocktiles2_10: -954344834
+      rocktiles2_11: 1607742755
+      rocktiles2_12: -1472580598
+      rocktiles2_13: -583822301
+      rocktiles2_14: 849879522
+      rocktiles2_15: -1289189966
+      rocktiles2_16: 1695421988
+      rocktiles2_17: 518374023
+      rocktiles2_18: 648270203
+      rocktiles2_19: -1505901177
+      rocktiles2_2: 1582382680
+      rocktiles2_20: -2030345706
+      rocktiles2_21: -295889690
+      rocktiles2_22: -1977959018
+      rocktiles2_23: 836798823
+      rocktiles2_24: -862775266
+      rocktiles2_25: 1225650136
+      rocktiles2_26: 515450367
+      rocktiles2_27: 959379539
+      rocktiles2_28: 1847543959
+      rocktiles2_29: 820479592
+      rocktiles2_3: 1270618740
+      rocktiles2_30: -868606688
+      rocktiles2_31: 673211995
+      rocktiles2_32: -1249954536
+      rocktiles2_33: 1391956443
+      rocktiles2_34: 638317971
+      rocktiles2_35: -102654602
+      rocktiles2_36: -983654339
+      rocktiles2_37: 364467595
+      rocktiles2_38: 1506134603
+      rocktiles2_39: -455076397
+      rocktiles2_4: 827691447
+      rocktiles2_40: 321920534
+      rocktiles2_41: -2138189854
+      rocktiles2_42: 378478440
+      rocktiles2_43: 2050163617
+      rocktiles2_44: -1256774035
+      rocktiles2_45: -865414774
+      rocktiles2_46: 790354223
+      rocktiles2_47: -244627286
+      rocktiles2_48: 1194136009
+      rocktiles2_49: 453793535
+      rocktiles2_5: 1337704660
+      rocktiles2_50: 1297523405
+      rocktiles2_51: 1251730545
+      rocktiles2_52: -1200929091
+      rocktiles2_53: -324292775
+      rocktiles2_54: 583907542
+      rocktiles2_55: -1418509995
+      rocktiles2_56: 1144864236
+      rocktiles2_57: 1982827170
+      rocktiles2_58: 1597332054
       rocktiles2_59: -1312396276
+      rocktiles2_6: -1229287259
+      rocktiles2_60: 1487992415
+      rocktiles2_61: -692081122
+      rocktiles2_62: -2021705437
+      rocktiles2_63: 798535730
+      rocktiles2_64: -1353316658
+      rocktiles2_65: -923319693
+      rocktiles2_66: 535645270
+      rocktiles2_67: -387121648
+      rocktiles2_68: 1367553118
+      rocktiles2_69: -189963657
+      rocktiles2_7: 1722287179
+      rocktiles2_70: 332350086
+      rocktiles2_71: -1094224056
+      rocktiles2_72: 1683008792
+      rocktiles2_73: 1096469182
+      rocktiles2_74: -1083740112
+      rocktiles2_75: 611625752
+      rocktiles2_76: 130025987
+      rocktiles2_77: 1105286381
+      rocktiles2_78: -77794928
+      rocktiles2_79: -1316579814
+      rocktiles2_8: 712553697
+      rocktiles2_80: -984018432
+      rocktiles2_81: 709340847
+      rocktiles2_82: 132518953
       rocktiles2_83: -320631256
       rocktiles2_84: 456071475
-      rocktiles2_77: 1105286381
-      rocktiles2_17: 518374023
-      rocktiles2_27: 959379539
-      rocktiles2_54: 583907542
-      rocktiles2_87: 1194414236
-      rocktiles2_9: 1872615663
-      rocktiles2_3: 1270618740
-      rocktiles2_40: 321920534
-      rocktiles2_50: 1297523405
-      rocktiles2_67: -387121648
-      rocktiles2_22: -1977959018
-      rocktiles2_94: 1267312096
-      rocktiles2_4: 827691447
-      rocktiles2_25: 1225650136
-      rocktiles2_42: 378478440
-      rocktiles2_8: 712553697
-      rocktiles2_98: -1799917856
-      rocktiles2_49: 453793535
-      rocktiles2_95: -1656348393
-      rocktiles2_97: 241046725
-      rocktiles2_10: -954344834
-      rocktiles2_53: -324292775
-      rocktiles2_55: -1418509995
-      rocktiles2_23: 836798823
-      rocktiles2_26: 515450367
-      rocktiles2_31: 673211995
-      rocktiles2_57: 1982827170
-      rocktiles2_61: -692081122
-      rocktiles2_52: -1200929091
-      rocktiles2_2: 1582382680
-      rocktiles2_38: 1506134603
-      rocktiles2_21: -295889690
-      rocktiles2_43: 2050163617
-      rocktiles2_73: 1096469182
-      rocktiles2_33: 1391956443
-      rocktiles2_46: 790354223
-      rocktiles2_16: 1695421988
-      rocktiles2_28: 1847543959
-      rocktiles2_47: -244627286
-      rocktiles2_34: 638317971
-      rocktiles2_74: -1083740112
-      rocktiles2_41: -2138189854
       rocktiles2_85: 400284004
-      rocktiles2_14: 849879522
-      rocktiles2_80: -984018432
-      rocktiles2_5: 1337704660
-      rocktiles2_93: 400631034
-      rocktiles2_32: -1249954536
-      rocktiles2_44: -1256774035
-      rocktiles2_24: -862775266
-      rocktiles2_36: -983654339
+      rocktiles2_86: 1858962386
+      rocktiles2_87: 1194414236
+      rocktiles2_88: -471403670
+      rocktiles2_89: 536372929
+      rocktiles2_9: 1872615663
+      rocktiles2_90: -677464954
+      rocktiles2_91: 790857798
       rocktiles2_92: 1908202136
-      rocktiles2_78: -77794928
-      rocktiles2_62: -2021705437
-      rocktiles2_19: -1505901177
-      rocktiles2_75: 611625752
-      rocktiles2_72: 1683008792
-  spritePackingTag: 
+      rocktiles2_93: 400631034
+      rocktiles2_94: 1267312096
+      rocktiles2_95: -1656348393
+      rocktiles2_96: 288667065
+      rocktiles2_97: 241046725
+      rocktiles2_98: -1799917856
+      rocktiles2_99: -1454598195
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

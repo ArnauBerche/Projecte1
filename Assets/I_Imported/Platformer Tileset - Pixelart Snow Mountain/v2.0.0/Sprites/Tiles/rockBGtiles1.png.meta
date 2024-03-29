@@ -3,7 +3,7 @@ guid: 5a6d562a05672ce4abe2b984f0cf7bfb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1386,69 +1393,68 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rockBGtiles1_46: 1269000017
-      rockBGtiles1_58: -1329519411
-      rockBGtiles1_31: -532054242
-      rockBGtiles1_35: -1922920680
-      rockBGtiles1_54: 1317221300
-      rockBGtiles1_16: -1056672634
-      rockBGtiles1_17: 1172061380
-      rockBGtiles1_3: 866024117
-      rockBGtiles1_28: 365392142
-      rockBGtiles1_13: 621253472
-      rockBGtiles1_37: 1089437985
-      rockBGtiles1_34: 1363328019
-      rockBGtiles1_57: -1423532876
-      rockBGtiles1_39: -2049818799
-      rockBGtiles1_51: 73128724
-      rockBGtiles1_24: -1061770887
-      rockBGtiles1_45: -850230536
-      rockBGtiles1_18: -1773027589
-      rockBGtiles1_38: -1031630355
-      rockBGtiles1_42: 1074467152
       rockBGtiles1_0: 900234452
+      rockBGtiles1_1: -1247571266
       rockBGtiles1_10: 1540554112
-      rockBGtiles1_21: 1136503550
-      rockBGtiles1_48: 2024780259
-      rockBGtiles1_50: -627752807
       rockBGtiles1_11: -674333465
       rockBGtiles1_12: 2066638260
+      rockBGtiles1_13: 621253472
+      rockBGtiles1_14: 864478641
+      rockBGtiles1_15: 708521276
+      rockBGtiles1_16: -1056672634
+      rockBGtiles1_17: 1172061380
+      rockBGtiles1_18: -1773027589
+      rockBGtiles1_19: -574994524
+      rockBGtiles1_2: -1976609546
+      rockBGtiles1_20: 1825231474
+      rockBGtiles1_21: 1136503550
+      rockBGtiles1_22: 1748977439
+      rockBGtiles1_23: 419839514
+      rockBGtiles1_24: -1061770887
+      rockBGtiles1_25: -228922252
+      rockBGtiles1_26: -1665599218
       rockBGtiles1_27: -1733924244
+      rockBGtiles1_28: 365392142
+      rockBGtiles1_29: 1902092769
+      rockBGtiles1_3: 866024117
+      rockBGtiles1_30: -902353817
+      rockBGtiles1_31: -532054242
+      rockBGtiles1_32: 636470953
+      rockBGtiles1_33: -1664590210
+      rockBGtiles1_34: 1363328019
+      rockBGtiles1_35: -1922920680
+      rockBGtiles1_36: 2096115720
+      rockBGtiles1_37: 1089437985
+      rockBGtiles1_38: -1031630355
+      rockBGtiles1_39: -2049818799
+      rockBGtiles1_4: -179396312
+      rockBGtiles1_40: -587080564
+      rockBGtiles1_41: 793924888
+      rockBGtiles1_42: 1074467152
+      rockBGtiles1_43: 1742842425
+      rockBGtiles1_44: 1907748350
+      rockBGtiles1_45: -850230536
+      rockBGtiles1_46: 1269000017
+      rockBGtiles1_47: 2044288132
+      rockBGtiles1_48: 2024780259
+      rockBGtiles1_49: 1272909518
+      rockBGtiles1_5: -113943980
+      rockBGtiles1_50: -627752807
+      rockBGtiles1_51: 73128724
       rockBGtiles1_52: 236212717
       rockBGtiles1_53: 782778747
-      rockBGtiles1_1: -1247571266
-      rockBGtiles1_49: 1272909518
+      rockBGtiles1_54: 1317221300
       rockBGtiles1_55: 1107561405
       rockBGtiles1_56: 331005070
-      rockBGtiles1_40: -587080564
-      rockBGtiles1_33: -1664590210
-      rockBGtiles1_19: -574994524
-      rockBGtiles1_4: -179396312
-      rockBGtiles1_9: -359547092
-      rockBGtiles1_20: 1825231474
-      rockBGtiles1_41: 793924888
+      rockBGtiles1_57: -1423532876
+      rockBGtiles1_58: -1329519411
       rockBGtiles1_59: -1490480154
-      rockBGtiles1_26: -1665599218
-      rockBGtiles1_7: -1096433922
-      rockBGtiles1_32: 636470953
-      rockBGtiles1_14: 864478641
-      rockBGtiles1_43: 1742842425
-      rockBGtiles1_15: 708521276
-      rockBGtiles1_36: 2096115720
       rockBGtiles1_6: 708027211
-      rockBGtiles1_44: 1907748350
-      rockBGtiles1_5: -113943980
-      rockBGtiles1_2: -1976609546
-      rockBGtiles1_22: 1748977439
-      rockBGtiles1_30: -902353817
-      rockBGtiles1_47: 2044288132
-      rockBGtiles1_25: -228922252
-      rockBGtiles1_23: 419839514
+      rockBGtiles1_7: -1096433922
       rockBGtiles1_8: 628252579
-      rockBGtiles1_29: 1902092769
-  spritePackingTag: 
+      rockBGtiles1_9: -359547092
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

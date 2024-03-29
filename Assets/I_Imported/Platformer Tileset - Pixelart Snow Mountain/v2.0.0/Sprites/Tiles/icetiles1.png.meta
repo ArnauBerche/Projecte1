@@ -3,7 +3,7 @@ guid: 024c8909d2e4fd7499c56a41cdafc850
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1974,97 +1981,96 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      icetiles1_37: -965004527
-      icetiles1_75: 763406165
-      icetiles1_30: 411844214
-      icetiles1_61: 1126239226
-      icetiles1_58: 2041647513
-      icetiles1_65: 1613019964
-      icetiles1_25: 1910285357
-      icetiles1_21: -887399044
-      icetiles1_14: -1063842866
-      icetiles1_9: -1351009360
-      icetiles1_43: 620907197
-      icetiles1_35: -1156104782
-      icetiles1_81: -1194313260
-      icetiles1_17: 392719829
-      icetiles1_31: -1549330233
-      icetiles1_47: -271430053
-      icetiles1_26: 1788738657
-      icetiles1_15: 478526454
-      icetiles1_59: 1659625801
-      icetiles1_24: 1544988872
-      icetiles1_1: -1403338307
-      icetiles1_22: -2040942526
-      icetiles1_70: -1830190420
       icetiles1_0: 1730016819
-      icetiles1_48: 1192909465
-      icetiles1_51: 1972192908
-      icetiles1_80: 500607777
-      icetiles1_29: -2146671918
-      icetiles1_41: -1284639733
-      icetiles1_85: 798038282
-      icetiles1_33: 1284054543
-      icetiles1_49: 573309352
-      icetiles1_84: 1514675164
-      icetiles1_19: 1150769847
-      icetiles1_68: -558130187
-      icetiles1_34: 2019439715
-      icetiles1_72: -1085370078
-      icetiles1_78: 500052040
-      icetiles1_27: -1838746751
-      icetiles1_2: 62849351
-      icetiles1_86: -850282520
-      icetiles1_74: 590857801
-      icetiles1_20: 924860933
-      icetiles1_4: -1802216438
-      icetiles1_71: -946200715
-      icetiles1_11: 1861196262
-      icetiles1_52: 566698770
-      icetiles1_57: 658803239
-      icetiles1_82: -2006627068
-      icetiles1_66: -1396426144
-      icetiles1_8: -714941627
-      icetiles1_60: -959769762
-      icetiles1_76: -2081472887
-      icetiles1_67: 1096415746
-      icetiles1_44: -263249583
-      icetiles1_63: 1222524682
-      icetiles1_56: -573863600
-      icetiles1_36: -675560347
+      icetiles1_1: -1403338307
       icetiles1_10: -1910543637
-      icetiles1_28: 665521624
-      icetiles1_45: -1143555151
-      icetiles1_79: -55211373
-      icetiles1_62: 2082453184
-      icetiles1_23: -1260442161
+      icetiles1_11: 1861196262
       icetiles1_12: -1337421616
-      icetiles1_5: 1378376199
-      icetiles1_16: -2007403868
-      icetiles1_83: -433823230
-      icetiles1_69: 1396599409
-      icetiles1_18: 1425550494
-      icetiles1_87: -1180744030
       icetiles1_13: 1642503704
-      icetiles1_7: -496816752
-      icetiles1_54: -11647602
-      icetiles1_32: 1325500925
-      icetiles1_42: 630828413
-      icetiles1_53: -298201102
-      icetiles1_64: 1485518591
-      icetiles1_39: -1768124162
-      icetiles1_50: -291693999
-      icetiles1_55: 830842695
-      icetiles1_73: 2072809795
-      icetiles1_38: 973973444
-      icetiles1_40: 1246552666
-      icetiles1_46: 1446288779
+      icetiles1_14: -1063842866
+      icetiles1_15: 478526454
+      icetiles1_16: -2007403868
+      icetiles1_17: 392719829
+      icetiles1_18: 1425550494
+      icetiles1_19: 1150769847
+      icetiles1_2: 62849351
+      icetiles1_20: 924860933
+      icetiles1_21: -887399044
+      icetiles1_22: -2040942526
+      icetiles1_23: -1260442161
+      icetiles1_24: 1544988872
+      icetiles1_25: 1910285357
+      icetiles1_26: 1788738657
+      icetiles1_27: -1838746751
+      icetiles1_28: 665521624
+      icetiles1_29: -2146671918
       icetiles1_3: 1918053361
-      icetiles1_77: -227081075
+      icetiles1_30: 411844214
+      icetiles1_31: -1549330233
+      icetiles1_32: 1325500925
+      icetiles1_33: 1284054543
+      icetiles1_34: 2019439715
+      icetiles1_35: -1156104782
+      icetiles1_36: -675560347
+      icetiles1_37: -965004527
+      icetiles1_38: 973973444
+      icetiles1_39: -1768124162
+      icetiles1_4: -1802216438
+      icetiles1_40: 1246552666
+      icetiles1_41: -1284639733
+      icetiles1_42: 630828413
+      icetiles1_43: 620907197
+      icetiles1_44: -263249583
+      icetiles1_45: -1143555151
+      icetiles1_46: 1446288779
+      icetiles1_47: -271430053
+      icetiles1_48: 1192909465
+      icetiles1_49: 573309352
+      icetiles1_5: 1378376199
+      icetiles1_50: -291693999
+      icetiles1_51: 1972192908
+      icetiles1_52: 566698770
+      icetiles1_53: -298201102
+      icetiles1_54: -11647602
+      icetiles1_55: 830842695
+      icetiles1_56: -573863600
+      icetiles1_57: 658803239
+      icetiles1_58: 2041647513
+      icetiles1_59: 1659625801
       icetiles1_6: -1179941350
-  spritePackingTag: 
+      icetiles1_60: -959769762
+      icetiles1_61: 1126239226
+      icetiles1_62: 2082453184
+      icetiles1_63: 1222524682
+      icetiles1_64: 1485518591
+      icetiles1_65: 1613019964
+      icetiles1_66: -1396426144
+      icetiles1_67: 1096415746
+      icetiles1_68: -558130187
+      icetiles1_69: 1396599409
+      icetiles1_7: -496816752
+      icetiles1_70: -1830190420
+      icetiles1_71: -946200715
+      icetiles1_72: -1085370078
+      icetiles1_73: 2072809795
+      icetiles1_74: 590857801
+      icetiles1_75: 763406165
+      icetiles1_76: -2081472887
+      icetiles1_77: -227081075
+      icetiles1_78: 500052040
+      icetiles1_79: -55211373
+      icetiles1_8: -714941627
+      icetiles1_80: 500607777
+      icetiles1_81: -1194313260
+      icetiles1_82: -2006627068
+      icetiles1_83: -433823230
+      icetiles1_84: 1514675164
+      icetiles1_85: 798038282
+      icetiles1_86: -850282520
+      icetiles1_87: -1180744030
+      icetiles1_9: -1351009360
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

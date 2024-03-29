@@ -3,7 +3,7 @@ guid: 30f9ae8c4f3b1d749b37a14e3d7b8f12
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1071,54 +1078,53 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      iceBGtiles_8: 1367921256
-      iceBGtiles_13: 40049264
-      iceBGtiles_29: 842499805
-      iceBGtiles_5: -449860077
-      iceBGtiles_33: -1569577560
-      iceBGtiles_3: -1672970903
-      iceBGtiles_25: 452018481
-      iceBGtiles_12: -529646278
-      iceBGtiles_11: -821595669
-      iceBGtiles_27: 1233843859
-      iceBGtiles_24: -1369856618
-      iceBGtiles_21: 1081612964
-      iceBGtiles_16: 1978864727
-      iceBGtiles_32: 1945440931
-      iceBGtiles_17: 248578381
-      iceBGtiles_6: -746559195
-      iceBGtiles_40: 358595776
-      iceBGtiles_22: -1404330021
-      iceBGtiles_44: -859120450
-      iceBGtiles_18: -211403709
-      iceBGtiles_2: -587981458
-      iceBGtiles_38: -249277691
-      iceBGtiles_43: 2034948443
-      iceBGtiles_7: -92295997
-      iceBGtiles_26: 1381828776
-      iceBGtiles_28: -816355957
-      iceBGtiles_31: -947369294
-      iceBGtiles_41: -568483899
-      iceBGtiles_4: -256442595
-      iceBGtiles_20: -370954301
-      iceBGtiles_14: -377223843
-      iceBGtiles_42: -689225764
-      iceBGtiles_37: -1996298060
-      iceBGtiles_19: 644537440
-      iceBGtiles_23: 1992538459
-      iceBGtiles_36: -1568771747
-      iceBGtiles_1: -761696458
-      iceBGtiles_30: 1324198819
-      iceBGtiles_10: -1444757976
-      iceBGtiles_39: -701316699
-      iceBGtiles_34: -642674368
-      iceBGtiles_9: -1987084082
       iceBGtiles_0: 278184238
-      iceBGtiles_35: 397280680
+      iceBGtiles_1: -761696458
+      iceBGtiles_10: -1444757976
+      iceBGtiles_11: -821595669
+      iceBGtiles_12: -529646278
+      iceBGtiles_13: 40049264
+      iceBGtiles_14: -377223843
       iceBGtiles_15: -2100936731
-  spritePackingTag: 
+      iceBGtiles_16: 1978864727
+      iceBGtiles_17: 248578381
+      iceBGtiles_18: -211403709
+      iceBGtiles_19: 644537440
+      iceBGtiles_2: -587981458
+      iceBGtiles_20: -370954301
+      iceBGtiles_21: 1081612964
+      iceBGtiles_22: -1404330021
+      iceBGtiles_23: 1992538459
+      iceBGtiles_24: -1369856618
+      iceBGtiles_25: 452018481
+      iceBGtiles_26: 1381828776
+      iceBGtiles_27: 1233843859
+      iceBGtiles_28: -816355957
+      iceBGtiles_29: 842499805
+      iceBGtiles_3: -1672970903
+      iceBGtiles_30: 1324198819
+      iceBGtiles_31: -947369294
+      iceBGtiles_32: 1945440931
+      iceBGtiles_33: -1569577560
+      iceBGtiles_34: -642674368
+      iceBGtiles_35: 397280680
+      iceBGtiles_36: -1568771747
+      iceBGtiles_37: -1996298060
+      iceBGtiles_38: -249277691
+      iceBGtiles_39: -701316699
+      iceBGtiles_4: -256442595
+      iceBGtiles_40: 358595776
+      iceBGtiles_41: -568483899
+      iceBGtiles_42: -689225764
+      iceBGtiles_43: 2034948443
+      iceBGtiles_44: -859120450
+      iceBGtiles_5: -449860077
+      iceBGtiles_6: -746559195
+      iceBGtiles_7: -92295997
+      iceBGtiles_8: 1367921256
+      iceBGtiles_9: -1987084082
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

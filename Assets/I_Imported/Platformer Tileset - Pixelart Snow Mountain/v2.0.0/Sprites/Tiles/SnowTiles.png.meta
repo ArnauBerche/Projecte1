@@ -3,7 +3,7 @@ guid: dc1637a5c9b266348be21ee9303fb847
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1218,61 +1225,60 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SnowTiles_24: 1957843218
-      SnowTiles_38: 508451018
-      SnowTiles_22: 9739363
-      SnowTiles_44: 147193873
-      SnowTiles_45: 1767298956
-      SnowTiles_17: 1541859410
-      SnowTiles_12: 1669513822
-      SnowTiles_20: -1140297802
-      SnowTiles_50: 890453243
-      SnowTiles_28: -1357212730
-      SnowTiles_5: 1034479902
-      SnowTiles_4: 1969248500
-      SnowTiles_16: 1265073070
-      SnowTiles_47: -126332050
-      SnowTiles_8: -718268328
-      SnowTiles_32: 785691683
-      SnowTiles_13: 196195481
-      SnowTiles_49: -1608397356
-      SnowTiles_18: 1096562758
-      SnowTiles_10: -2086280615
-      SnowTiles_46: -773401643
       SnowTiles_0: 1683004379
-      SnowTiles_37: 675182245
+      SnowTiles_1: -719816610
+      SnowTiles_10: -2086280615
+      SnowTiles_11: -455008956
+      SnowTiles_12: 1669513822
+      SnowTiles_13: 196195481
       SnowTiles_14: 750920165
-      SnowTiles_21: 1572241595
+      SnowTiles_15: -876785023
+      SnowTiles_16: 1265073070
+      SnowTiles_17: 1541859410
+      SnowTiles_18: 1096562758
       SnowTiles_19: 9092807
-      SnowTiles_9: 252369567
+      SnowTiles_2: -1236054504
+      SnowTiles_20: -1140297802
+      SnowTiles_21: 1572241595
+      SnowTiles_22: 9739363
+      SnowTiles_23: 493419078
+      SnowTiles_24: 1957843218
+      SnowTiles_25: -910539509
+      SnowTiles_26: -8515391
+      SnowTiles_27: 882339877
+      SnowTiles_28: -1357212730
+      SnowTiles_29: -2015823665
       SnowTiles_3: 471911723
       SnowTiles_30: -868512251
-      SnowTiles_48: 1636824372
-      SnowTiles_43: 1334169580
-      SnowTiles_27: 882339877
-      SnowTiles_2: -1236054504
-      SnowTiles_35: -1159110542
-      SnowTiles_39: 1595592818
-      SnowTiles_11: -455008956
-      SnowTiles_42: -703038510
-      SnowTiles_26: -8515391
-      SnowTiles_40: -1417007006
-      SnowTiles_29: -2015823665
-      SnowTiles_33: -907514637
-      SnowTiles_1: -719816610
-      SnowTiles_36: 1900896542
-      SnowTiles_34: 605788687
       SnowTiles_31: -827613163
-      SnowTiles_25: -910539509
+      SnowTiles_32: 785691683
+      SnowTiles_33: -907514637
+      SnowTiles_34: 605788687
+      SnowTiles_35: -1159110542
+      SnowTiles_36: 1900896542
+      SnowTiles_37: 675182245
+      SnowTiles_38: 508451018
+      SnowTiles_39: 1595592818
+      SnowTiles_4: 1969248500
+      SnowTiles_40: -1417007006
       SnowTiles_41: 11806131
-      SnowTiles_7: -1580528195
-      SnowTiles_6: -299892414
+      SnowTiles_42: -703038510
+      SnowTiles_43: 1334169580
+      SnowTiles_44: 147193873
+      SnowTiles_45: 1767298956
+      SnowTiles_46: -773401643
+      SnowTiles_47: -126332050
+      SnowTiles_48: 1636824372
+      SnowTiles_49: -1608397356
+      SnowTiles_5: 1034479902
+      SnowTiles_50: 890453243
       SnowTiles_51: -214096336
-      SnowTiles_15: -876785023
-      SnowTiles_23: 493419078
-  spritePackingTag: 
+      SnowTiles_6: -299892414
+      SnowTiles_7: -1580528195
+      SnowTiles_8: -718268328
+      SnowTiles_9: 252369567
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

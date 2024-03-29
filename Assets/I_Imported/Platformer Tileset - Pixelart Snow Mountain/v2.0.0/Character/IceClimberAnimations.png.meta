@@ -3,7 +3,7 @@ guid: 876f95b3dca8eb5439d478845d0d01ea
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -588,31 +595,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      IceClimberAnimations_0: 1036332764
+      IceClimberAnimations_1: 1235868574
+      IceClimberAnimations_10: 1169579062
+      IceClimberAnimations_11: -866253073
+      IceClimberAnimations_12: -592941757
+      IceClimberAnimations_13: 1990008604
       IceClimberAnimations_14: 864125254
       IceClimberAnimations_15: -548810131
-      IceClimberAnimations_8: -1267671927
-      IceClimberAnimations_13: 1990008604
-      IceClimberAnimations_11: -866253073
       IceClimberAnimations_16: 2083543338
-      IceClimberAnimations_0: 1036332764
-      IceClimberAnimations_18: 1642718925
       IceClimberAnimations_17: -1548940228
-      IceClimberAnimations_12: -592941757
+      IceClimberAnimations_18: 1642718925
+      IceClimberAnimations_19: 700083728
+      IceClimberAnimations_2: -1670839214
+      IceClimberAnimations_20: 2122897407
       IceClimberAnimations_21: 2076081177
       IceClimberAnimations_3: -474237652
-      IceClimberAnimations_10: 1169579062
+      IceClimberAnimations_4: -1921768408
+      IceClimberAnimations_5: 1335145203
       IceClimberAnimations_6: -1355576051
       IceClimberAnimations_7: -1414418849
-      IceClimberAnimations_1: 1235868574
-      IceClimberAnimations_19: 700083728
-      IceClimberAnimations_20: 2122897407
-      IceClimberAnimations_2: -1670839214
-      IceClimberAnimations_4: -1921768408
+      IceClimberAnimations_8: -1267671927
       IceClimberAnimations_9: 1149372160
-      IceClimberAnimations_5: 1335145203
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
