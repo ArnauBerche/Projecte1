@@ -123,6 +123,15 @@ public class S_CMovement : MonoBehaviour
     private void Update()
     {
         //Check 4 Animations
+        if (direction < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if(direction > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         Animations();
         if(movementEnabled)
         {
@@ -385,15 +394,6 @@ public class S_CMovement : MonoBehaviour
     public void Animations()
     {
         //Basic Animations
-
-        if (direction < 0)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
 
 
         if (isDead)
