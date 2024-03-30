@@ -36,7 +36,7 @@ public class S_CHook : MonoBehaviour
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistance = 5;
     [SerializeField] private float minDistance = 1;
-    [Range(0.1f, 2f)][SerializeField] private float cursorForgivenes = 0.1f;
+
 
     [SerializeField] public Vector3 inpactRotation;
 
@@ -48,6 +48,11 @@ public class S_CHook : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+    [Header("Particle sistem")]
+
+    public ParticleSystem dust;
+    private bool hasPlayed = false;
+
 
     public Vector3 dirToMouse;
 
@@ -57,7 +62,7 @@ public class S_CHook : MonoBehaviour
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
-        detectionCursor.transform.localScale = new Vector2(cursorForgivenes * 2, cursorForgivenes * 2);
+        detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
     }
 
     private void Update()
@@ -95,6 +100,20 @@ public class S_CHook : MonoBehaviour
         }
 
         HookChecks();
+        if (isHooked)
+        {
+            if (!hasPlayed)
+            {
+                dust.Emit(25);
+                hasPlayed = true;
+            }
+        }
+        else 
+        {
+            hasPlayed = false;
+        }
+
+        
     }
 
 
@@ -187,7 +206,7 @@ public class S_CHook : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(firePoint.position, maxDistance);
-            Gizmos.DrawWireSphere(m_camera.ScreenToWorldPoint(Input.mousePosition), cursorForgivenes);
+            Gizmos.DrawWireSphere(m_camera.ScreenToWorldPoint(Input.mousePosition), 0.5f);
         }
     }
 }
