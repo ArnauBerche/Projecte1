@@ -11,13 +11,17 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void Quit()
+    public void BTM()
     {
 
+        SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
         Debug.Log("Quit...");
         //Aquest boto funcionara cuan tinguem la aplicacio del joc creada
         Application.Quit();
-
     }
 
 }
