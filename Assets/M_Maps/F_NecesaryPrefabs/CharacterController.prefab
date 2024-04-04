@@ -5532,7 +5532,7 @@ MonoBehaviour:
   DCenter: {fileID: 4208738438099787834}
   DClose: {fileID: 8725544766351421686}
   DMidle: {fileID: 3502031258932850456}
-  cursorForgivenes: 0.5
+  cursorForgivenes: 0.25
 --- !u!50 &1827020327274412514
 Rigidbody2D:
   serializedVersion: 4

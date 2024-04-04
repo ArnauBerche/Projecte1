@@ -119,6 +119,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -131,7 +157,7 @@ TextureImporter:
         width: 28
         height: 24
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +178,7 @@ TextureImporter:
         width: 18
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,12 +194,12 @@ TextureImporter:
       name: SignsDecor_2
       rect:
         serializedVersion: 2
-        x: 71
+        x: 64
         y: 72
         width: 16
-        height: 16
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,15 +212,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_3
+      name: SignsDecor_4
       rect:
         serializedVersion: 2
         x: 8
-        y: 36
-        width: 32
-        height: 28
+        y: 37
+        width: 31
+        height: 27
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,15 +233,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_4
+      name: SignsDecor_5
       rect:
         serializedVersion: 2
-        x: 50
+        x: 44
         y: 50
         width: 20
         height: 14
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,15 +254,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_5
+      name: SignsDecor_6
       rect:
         serializedVersion: 2
-        x: 74
+        x: 65
         y: 48
         width: 20
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,15 +275,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_6
+      name: SignsDecor_7
       rect:
         serializedVersion: 2
-        x: 99
+        x: 88
         y: 40
         width: 10
         height: 24
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -270,15 +296,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_7
+      name: SignsDecor_8
       rect:
         serializedVersion: 2
-        x: 50
-        y: 8
-        width: 12
-        height: 30
+        x: 99
+        y: 40
+        width: 10
+        height: 24
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -291,15 +317,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_8
+      name: SignsDecor_9
       rect:
         serializedVersion: 2
-        x: 66
+        x: 16
         y: 8
-        width: 12
-        height: 30
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -312,15 +338,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_9
+      name: SignsDecor_10
       rect:
         serializedVersion: 2
-        x: 82
+        x: 50
         y: 8
         width: 12
-        height: 30
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -333,22 +359,64 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SignsDecor_10
+      name: SignsDecor_3
       rect:
         serializedVersion: 2
-        x: 16
-        y: 8
+        x: 81
+        y: 72
         width: 16
-        height: 16
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b27bdbd725debe45b9b4a0bbd59b35c
-      internalID: 2074926231
+      spriteID: 65a8f32ee05687d47bb7d2da35658490
+      internalID: 124294229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SignsDecor_11
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 8
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d056e7511fc3e44499287630424fa003
+      internalID: -330721463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SignsDecor_12
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 8
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 517ce39eb82cdc346ab7855c3670db6f
+      internalID: 1534902023
       vertices: []
       indices: 
       edges: []
@@ -367,6 +435,8 @@ TextureImporter:
       SignsDecor_0: -245980179
       SignsDecor_1: 1810543993
       SignsDecor_10: -308029399
+      SignsDecor_11: -330721463
+      SignsDecor_12: 1534902023
       SignsDecor_2: 1357970842
       SignsDecor_3: 124294229
       SignsDecor_4: -1063702988
