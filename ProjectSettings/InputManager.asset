@@ -490,7 +490,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left ctrl
+    positiveButton: left shift
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -502,11 +502,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Run
+    m_Name: Parachute
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left shift
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
