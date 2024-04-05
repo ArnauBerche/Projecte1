@@ -5,15 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class S_LevelPass : MonoBehaviour
 {
-    public int id = 0;
     void OnTriggerEnter2D(Collider2D col) 
     {
         if(col.gameObject.tag == "Player") 
         {
-            if (id == 0) 
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
+            S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
+            transition.CallPass(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

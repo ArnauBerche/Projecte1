@@ -14,6 +14,10 @@ public class S_CRespawn : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        mainChar.respawnPoint = transform.position;
+        if(col.gameObject.tag == "Player") 
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            mainChar.respawnPoint = transform.position;
+        }
     }
 }

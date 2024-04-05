@@ -5,16 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
     public void Play()
     {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
+        transition.CallPass(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void BTM()
     {
-
-        SceneManager.LoadScene(0);
+        S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
+        transition.CallPass(0);
     }
 
     public void Quit()
