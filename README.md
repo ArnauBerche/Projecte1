@@ -1,7 +1,9 @@
 # Projecte1
+
 La branca de entrega mes recent es main del 05/04/24 a les 21:38.
 
 Integrants:
+
   Aberche - arnauberche@enti.cat
   
   iantom04 - ian.tomas@enti.cat
