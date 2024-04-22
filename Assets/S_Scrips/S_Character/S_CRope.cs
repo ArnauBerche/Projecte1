@@ -8,6 +8,7 @@ public class S_CRope : MonoBehaviour
     public S_CHook grapplingGun;
     public LineRenderer m_lineRenderer;
     public GameObject hookSprite;
+    public Vector3 Look;
 
     [Header("General Settings:")]
     [SerializeField] private int percision = 40;
@@ -107,6 +108,7 @@ public class S_CRope : MonoBehaviour
             hookSprite.transform.position = currentPosition;
             hookSprite.transform.rotation = grapplingGun.gunPivot.rotation * Quaternion.Euler(0,0,-90);
             m_lineRenderer.SetPosition(i, currentPosition);
+            Look = currentPosition;
         }
     }
 

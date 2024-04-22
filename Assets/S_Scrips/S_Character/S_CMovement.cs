@@ -24,7 +24,7 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Jump & Related:")]
 
-    [SerializeField] private float jumpHeight = 30;
+    [SerializeField] private float jumpHeight = 20;
     [SerializeField] private float limitJumpTime = 1;
     [SerializeField] private float limitJumpTimeValue = 1;
 
@@ -48,7 +48,7 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rB;
     [SerializeField] private Animator animatorCharacter;
     [SerializeField] private S_CHook hook;
-    
+
 
     [Header("Game Checks")]
         
@@ -60,6 +60,12 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private Vector2 lastPos;
 	[SerializeField] private Vector2 currentPos;
     [SerializeField] private bool isLower;
+
+    [Header("Death")]
+    [SerializeField] private bool isDead;
+    [SerializeField] private bool movementEnabled = true;
+    [SerializeField] public Vector3 respawnPoint;
+    [SerializeField] private float deadtime = 1;
 
 
     private void Awake()
@@ -78,83 +84,117 @@ public class S_CMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Process on a fixed Update all phisics related stuf
-        MoveCharacter();
-        ApplyDeacceleration();
-        LastPositionChecker();
-
-        directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
-        fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
-        
-        //Parachute falling speed diference
-        //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
-        if(parachute)
+        if(movementEnabled)
         {
-            if(isLower == true)
+            // Process on a fixed Update all phisics related stuf
+            MoveCharacter();
+            ApplyDeacceleration();
+            LastPositionChecker();
+
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+            fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
+            
+            //Parachute falling speed diference
+            //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
+            if(parachute)
             {
-                rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                if(isLower == true)
+                {
+                    rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                }
+                rB.gravityScale = fallGravityAir;
             }
-            rB.gravityScale = fallGravityAir;
+        }
+    }
+
+    void AjustGameRotation() 
+    {
+        if (hook.isHooked)
+        {
+            rB.constraints = RigidbodyConstraints2D.None;
+        }
+        else 
+        {
+            rB.constraints = RigidbodyConstraints2D.FreezeRotation;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
     private void Update()
     {
         //Check 4 Animations
-        Animations();
-
-        //JumpRelated
-        Coyote();
-        Buffer();            
-        JumpChecks();
-
-        // When character is not in the air and buffer is runing chech if player has a possible jumc condition, if true jumps.
-        if(bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
+        if (direction < 0)
         {
-            //We set the amount of time character will jump and if needed we dissabled the hook.
-            limitJumpTime = limitJumpTimeValue;
-            if (hook.isHooked) 
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if(direction > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        Animations();
+        if(movementEnabled)
+        {
+            hook.enabled = true;
+            //JumpRelated
+            Coyote();
+            Buffer();            
+            JumpChecks();
+            AjustGameRotation();
+
+            // When character is not in the air and buffer is runing chech if player has a possible jumc condition, if true jumps.
+            if (bufferCounter > 0f && ((onGround || validCoyote || hook.isHooked) && !isJumping))
             {
-                hook.isHooked = false;
-                hook.grappleRope.enabled = false;
-                hook.m_springJoint2D.enabled = false;
+                //We set the amount of time character will jump and if needed we dissabled the hook.
+                limitJumpTime = limitJumpTimeValue;
+                if (hook.isHooked) 
+                {
+                    hook.isHooked = false;
+                    hook.grappleRope.enabled = false;
+                    hook.m_springJoint2D.enabled = false;
+                }
+
+                //Jump
+                JumpHability();
+                
+            }
+            //If character stops pressing jump or any of the jump possibilitis are able character stops the jump.
+            else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
+            {
+                //The player is no longer jumping, gravity is set to fall and jumptime resets.
+                isJumping = false;
+                rB.gravityScale = fallGravityLand;
+                limitJumpTime = limitJumpTimeValue * 2;
             }
 
-            //Jump
-            JumpHability();
-            
-        }
-        //If character stops pressing jump or any of the jump possibilitis are able character stops the jump.
-        else if((!Input.GetButton("Jump") || (bufferCounter < 0f && onGround && !isJumping && hook.isHooked)))
-        {
-            //The player is no longer jumping, gravity is set to fall and jumptime resets.
-            isJumping = false;
-            rB.gravityScale = fallGravityLand;
-            limitJumpTime = limitJumpTimeValue * 2;
-        }
-
-        // When "ctrl" is pressed and the player is on ground the player can crouch
-        if(Input.GetButton("Crouch") && onGround)
-        {
-            crouching = true;
-        }
-        else
-        {
-            crouching = false;
-        }
-
-        //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
-        if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
-        {
-            if(parachute)
+            // When "ctrl" is pressed and the player is on ground the player can crouch
+            if(Input.GetButton("Crouch") && onGround)
             {
-                parachute = false;
+                crouching = true;
             }
             else
             {
-                parachute = true;
+                crouching = false;
+            }
+
+            //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
+            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
+            {
+                if(parachute)
+                {
+                    parachute = false;
+                }
+                else
+                {
+                    parachute = true;
+                }
             }
         }
+        else
+        {
+            hook.enabled = false;
+        }
+        
 
     }
 
@@ -225,6 +265,7 @@ public class S_CMovement : MonoBehaviour
         //We are jumping and change the gravity to air
         isJumping = true;
         rB.gravityScale = fallGravityAir;
+        AjustGameRotation();
         Jump();
     }
 
@@ -293,6 +334,31 @@ public class S_CMovement : MonoBehaviour
             bufferCounter -= Time.deltaTime;
         }
     }
+    public void OnTriggerEnter2D(Collider2D Trig)
+    {
+        if(Trig.gameObject.tag == "Death")
+        {
+            DeadFunction();
+        }
+    }
+
+    void DeadFunction()
+    {
+        isDead = true;
+        movementEnabled = false;
+        rB.drag = 100;
+        rB.gravityScale = 0;
+        Invoke("Respawn", deadtime);
+
+    }
+
+    void Respawn()
+    {
+        transform.position = respawnPoint;
+        isDead = false;
+        movementEnabled = true;
+    }
+
     public void OnCollisionStay2D(Collision2D col) 
     {
         if (col.collider != null)
@@ -318,9 +384,7 @@ public class S_CMovement : MonoBehaviour
                     rB.gravityScale = fallGravityLand;
                 }
             }
-        }
-
-        
+        } 
     }
     public void OnCollisionExit2D(Collision2D col)
     {
@@ -330,51 +394,43 @@ public class S_CMovement : MonoBehaviour
     public void Animations()
     {
         //Basic Animations
-        if (direction != 0)
+
+
+        if (isDead)
         {
-            if(direction < 0)
+
+        }
+        else if (hook.isHooked)
+        {
+            animatorCharacter.Play("Grab");
+        }
+        else if (parachute) 
+        {
+            animatorCharacter.Play("Paravela");
+        }
+        else if (!isJumping && !onGround)
+        {
+            animatorCharacter.Play("ClimberFall");
+        }
+        else if (isJumping && !onGround)
+        {
+            animatorCharacter.Play("ClimberJump");
+        }
+        else if (direction != 0)
+        {
+            if (speed == crouchSpeed)
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                animatorCharacter.Play("ClimberCrouch");
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            }
-
-            if(speed == crouchSpeed)
-            {
-                animatorCharacter.SetBool("Crouching",true);
-                animatorCharacter.SetBool("Static",false);
-                animatorCharacter.SetBool("Walk",false);
-
-            }
-            else
-            {
-                animatorCharacter.SetBool("Walk",true);  
-                animatorCharacter.SetBool("Static",false);
-                animatorCharacter.SetBool("Crouching",false);
+                animatorCharacter.Play("ClimberWalk");
             }
         }
         else
         {
-            animatorCharacter.SetBool("Crouching",false); 
-            animatorCharacter.SetBool("Walk",false);
-            animatorCharacter.SetBool("Static",true);
+            animatorCharacter.Play("Idle");
         } 
-
-        if (onGround)
-        {
-            animatorCharacter.SetBool("Falling",false);
-            animatorCharacter.SetBool("Jumped",false);
-        }
-        else if(!isJumping && !onGround)
-        {
-            animatorCharacter.SetBool("Falling",true);
-            animatorCharacter.SetBool("Jumped",false);
-        }
-        else if(isJumping && !onGround)
-        {
-            animatorCharacter.SetBool("Jumped",true);
-        }
     }
+
 }
