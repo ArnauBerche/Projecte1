@@ -14,6 +14,7 @@ public class S_CMovement : MonoBehaviour
     public float maxSpeed;
     [SerializeField] float maxCrouchSpeed = 7f;
     [SerializeField] float maxWalkSpeed = 14;
+    [SerializeField] public float extraWindInertia = 0;
                
     [SerializeField] float groundDeceleration = 100;
     private float direction;    
@@ -91,7 +92,7 @@ public class S_CMovement : MonoBehaviour
             ApplyDeacceleration();
             LastPositionChecker();
 
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
             
             //Parachute falling speed diference
@@ -100,7 +101,7 @@ public class S_CMovement : MonoBehaviour
             {
                 if(isLower == true)
                 {
-                    rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                    rB.velocity = new Vector2(rB.velocity.x, rB.velocity.y*-fallSpeedMultiplayer);
                 }
                 rB.gravityScale = fallGravityAir;
             }
@@ -241,7 +242,7 @@ public class S_CMovement : MonoBehaviour
         rB.AddForce(new Vector2(direction, 0) * speed);
 
         //if the absulute speed on x is superior to max speed we include y velocity acording to x speed
-        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
+        if(Mathf.Abs(rB.velocity.x) > maxSpeed + extraWindInertia)
         {
             rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
         }
