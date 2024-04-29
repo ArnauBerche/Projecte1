@@ -33255,30 +33255,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterController
       objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: deadtime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: walkSpeed
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: crouchSpeed
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: maxWalkSpeed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: maxCrouchSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: parachuteDecendSpeed
-      value: -0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 3678511664270245110, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_Constraints
       value: 0

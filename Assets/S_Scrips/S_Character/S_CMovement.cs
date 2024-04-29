@@ -64,6 +64,7 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Death")]
     [SerializeField] private bool isDead;
+    [SerializeField] private bool isRespawning;
     [SerializeField] private bool movementEnabled = true;
     [SerializeField] public Vector3 respawnPoint;
     [SerializeField] private float deadtime = 1;
@@ -355,7 +356,15 @@ public class S_CMovement : MonoBehaviour
 
     void Respawn()
     {
+        isRespawning = true;
         transform.position = respawnPoint;
+        Invoke("RegainControll", deadtime);
+        
+    }
+
+    void RegainControll()
+    {
+        isRespawning = false;
         isDead = false;
         movementEnabled = true;
     }
@@ -399,7 +408,14 @@ public class S_CMovement : MonoBehaviour
 
         if (isDead)
         {
-
+            if(!isRespawning)
+            {
+                animatorCharacter.Play("Death");
+            }
+            else
+            {
+                animatorCharacter.Play("Respawn");
+            }      
         }
         else if (hook.isHooked)
         {

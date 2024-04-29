@@ -5,6 +5,7 @@ using UnityEngine;
 public class S_LWind : MonoBehaviour
 {
     public GameObject Wind;
+    private S_CMovement Player;
     private ParticleSystem psWind;
 
     public float WindLength = 1f;
@@ -46,13 +47,14 @@ public class S_LWind : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
-            col.gameObject.GetComponent<S_CMovement>().extraWindInertia = 5;
+            Player = col.gameObject.GetComponent<S_CMovement>();
+            Player.extraWindInertia = 5;
             if (playerRb != null)
             {
                 Vector2 direction = -transform.right;
                 if(onlyAfectParavela)
                 {
-                    if(col.gameObject.GetComponent<S_CMovement>().parachute)
+                    if(Player.parachute)
                     {
                         playerRb.velocity += direction * -WindStrenght;
                     }
@@ -63,9 +65,12 @@ public class S_LWind : MonoBehaviour
                 }               
             }
         }
-        else
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
         {
-            col.gameObject.GetComponent<S_CMovement>().extraWindInertia = 0;
+            Player.extraWindInertia = 0;
         }
     }
 }
