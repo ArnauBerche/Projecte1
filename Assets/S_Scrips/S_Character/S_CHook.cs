@@ -99,6 +99,14 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
+        if (Input.GetButtonDown("Fire2"))
+        {
+            grapplePoint += new Vector2(0.1f,0.1f);
+            m_springJoint2D.connectedAnchor = grapplePoint;
+            m_springJoint2D.distance -= 0.4f;
+            
+        }
+
         HookChecks();
         if (isHooked)
         {
