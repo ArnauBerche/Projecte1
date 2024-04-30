@@ -45,9 +45,8 @@ public class S_LMovingPlatform : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-
         {
-            collision.transform.parent = null;
+            collision.transform.parent = GameObject.Find("CharacterController").transform;
         }
 
     }
