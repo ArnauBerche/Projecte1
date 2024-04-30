@@ -9402,7 +9402,7 @@ Tilemap:
   - m_RefCount: 680
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.9457227, g: 0.4939787, b: 0.50178593, a: 1}
+    m_Data: {r: 0.8284545, g: 0.56911206, b: 0.5864728, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9521,7 +9521,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &7728680738497333615
+--- !u!114 &2810746904207320855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
