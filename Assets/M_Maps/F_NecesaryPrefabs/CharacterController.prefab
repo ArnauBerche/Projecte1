@@ -5758,7 +5758,7 @@ MonoBehaviour:
   fallGravityLand: 15
   coyoteCount: 3
   bufferTime: 0.2
-  parachuteDecendSpeed: -0.4
+  parachuteDecendSpeed: -0.6
   rB: {fileID: 3678511664270245110}
   animatorCharacter: {fileID: 5499002173733988841}
   hook: {fileID: 382253655080626725}
