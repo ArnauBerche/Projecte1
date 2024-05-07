@@ -48314,6 +48314,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterController
       objectReference: {fileID: 0}
+    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: HookIsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: parachuteIsEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4807543175821332854, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: cursorForgivenes
       value: 0.25

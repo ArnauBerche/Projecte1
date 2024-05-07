@@ -5421,7 +5421,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.66}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5432,7 +5432,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &2789281183814401461
 MonoBehaviour:
@@ -5777,6 +5777,8 @@ MonoBehaviour:
   movementEnabled: 1
   respawnPoint: {x: 0, y: 0, z: 0}
   deadtime: 1
+  parachuteIsEnabled: 0
+  HookIsEnabled: 0
 --- !u!50 &3678511664270245110
 Rigidbody2D:
   serializedVersion: 4
@@ -5877,7 +5879,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7507176513949589238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5da65c1ad5e21c849b0caef5741c2323, type: 3}
   m_Name: 

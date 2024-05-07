@@ -69,6 +69,10 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] public Vector3 respawnPoint;
     [SerializeField] private float deadtime = 1;
 
+    [Header("EnabledComps")]
+    [SerializeField] public bool parachuteIsEnabled;
+    [SerializeField] public bool HookIsEnabled;
+
 
     private void Awake()
     {   
@@ -137,7 +141,7 @@ public class S_CMovement : MonoBehaviour
         Animations();
         if(movementEnabled)
         {
-            hook.enabled = true;
+            hook.enabled = HookIsEnabled;
             //JumpRelated
             Coyote();
             Buffer();            
@@ -180,7 +184,7 @@ public class S_CMovement : MonoBehaviour
             }
 
             //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
-            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
+            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked && parachuteIsEnabled)
             {
                 if(parachute)
                 {

@@ -21148,10 +21148,6 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 805726349}
-    - target: {fileID: 843967488684758875, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.66
-      objectReference: {fileID: 0}
     - target: {fileID: 1867360537897509785, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -21200,13 +21196,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterController
       objectReference: {fileID: 0}
+    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: HookIsEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: parachuteIsEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3832996790173246353, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5119480277236450991, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5119480277236450991, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_TagString
