@@ -93,7 +93,7 @@ public class S_CMovement : MonoBehaviour
             ApplyDeacceleration();
             LastPositionChecker();
 
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction);
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.7f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
             
             //Parachute falling speed diference

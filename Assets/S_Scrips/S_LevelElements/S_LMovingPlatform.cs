@@ -35,12 +35,19 @@ public class S_LMovingPlatform : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
-
         {
             collision.transform.parent = this.transform;
         }
-
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(Input.GetButton("Fire1"))
+        {
+            collision.transform.parent = GameObject.Find("CharacterController").transform;
+        }
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
