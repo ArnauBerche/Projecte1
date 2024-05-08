@@ -34,9 +34,9 @@ public class S_CHook : MonoBehaviour
 
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
-    [SerializeField] private float maxDistance = 5;
-    [SerializeField] private float minDistance = 1;
-    [Range(0.1f, 2f)][SerializeField] private float cursorForgivenes = 0.1f;
+    [SerializeField] public float maxDistance = 5;
+    [SerializeField] public float minDistance = 1;
+
 
     [SerializeField] public Vector3 inpactRotation;
 
@@ -48,15 +48,21 @@ public class S_CHook : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+    [Header("Particle sistem")]
+
+    public ParticleSystem dust;
+    private bool hasPlayed = false;
+
 
     public Vector3 dirToMouse;
 
-    private void Start()
+    private void Awake()
     {
+        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
-        detectionCursor.transform.localScale = new Vector2(cursorForgivenes * 2, cursorForgivenes * 2);
+        detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
     }
 
     private void Update()
@@ -93,7 +99,27 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
+        if (Input.GetButtonDown("Fire2"))
+        {
+
+            
+        }
+
         HookChecks();
+        if (isHooked)
+        {
+            if (!hasPlayed)
+            {
+                dust.Emit(25);
+                hasPlayed = true;
+            }
+        }
+        else 
+        {
+            hasPlayed = false;
+        }
+
+        
     }
 
 
@@ -186,7 +212,7 @@ public class S_CHook : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(firePoint.position, maxDistance);
-            Gizmos.DrawWireSphere(m_camera.ScreenToWorldPoint(Input.mousePosition), cursorForgivenes);
+            Gizmos.DrawWireSphere(m_camera.ScreenToWorldPoint(Input.mousePosition), 0.5f);
         }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Grabable
   - Ice
+  - Death
+  - MP
   layers:
   - Default
   - TransparentFX

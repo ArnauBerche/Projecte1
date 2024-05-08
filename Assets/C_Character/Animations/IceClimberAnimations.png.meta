@@ -530,8 +530,8 @@ TextureImporter:
       name: IceClimberAnimations_18
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 48
+        y: 32
         width: 16
         height: 24
       alignment: 0
@@ -551,8 +551,8 @@ TextureImporter:
       name: IceClimberAnimations_19
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
+        x: 80
+        y: 32
         width: 16
         height: 24
       alignment: 0
@@ -562,7 +562,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c51bfa66579f0cd49abb0636c2f1ba08
+      spriteID: d7103cd913dff4248938c982bbcb9af1
       internalID: 700083728
       vertices: []
       indices: 
@@ -572,8 +572,8 @@ TextureImporter:
       name: IceClimberAnimations_20
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 96
+        y: 32
         width: 16
         height: 24
       alignment: 0
@@ -583,7 +583,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74549f314e86d974987a2250d470f592
+      spriteID: d11db8c190e05564c9f531f61b5a9c5b
       internalID: 2122897407
       vertices: []
       indices: 
@@ -593,7 +593,28 @@ TextureImporter:
       name: IceClimberAnimations_21
       rect:
         serializedVersion: 2
-        x: 48
+        x: 112
+        y: 32
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 277ed46758a14b342bfd45b7dd9f2548
+      internalID: 2076081177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceClimberAnimations_22
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 16
         height: 24
@@ -604,8 +625,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d09ab8def55b374abbd511d631b0bc5
-      internalID: 2076081177
+      spriteID: ae7e52720eaa2fb43be881dbde9f1b88
+      internalID: -64628744
       vertices: []
       indices: 
       edges: []
@@ -636,6 +657,7 @@ TextureImporter:
       IceClimberAnimations_2: -1670839214
       IceClimberAnimations_20: 2122897407
       IceClimberAnimations_21: 2076081177
+      IceClimberAnimations_22: -64628744
       IceClimberAnimations_3: -474237652
       IceClimberAnimations_4: -1921768408
       IceClimberAnimations_5: 1335145203
