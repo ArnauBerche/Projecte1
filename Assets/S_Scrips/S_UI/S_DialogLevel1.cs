@@ -14,12 +14,13 @@ public class S_DialogLevel1 : MonoBehaviour
     private bool isPlayerInRange;
     private bool didDialogueStart;
     private int lineIndex;
-
+    [SerializeField] private int[] lineFontSize;
 
 
     void Update()
     {
-       if (isPlayerInRange)
+        SetLineSize();
+        if (isPlayerInRange)
         {
             if(!didDialogueStart)
             {
@@ -60,7 +61,10 @@ public class S_DialogLevel1 : MonoBehaviour
         }
     }
 
-
+    private void SetLineSize()
+    {
+        dialogueText.fontSize = lineFontSize[lineIndex];
+    }
 
     private IEnumerator ShowLine()
     {
