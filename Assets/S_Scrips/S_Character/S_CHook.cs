@@ -34,8 +34,8 @@ public class S_CHook : MonoBehaviour
 
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
-    [SerializeField] private float maxDistance = 5;
-    [SerializeField] private float minDistance = 1;
+    [SerializeField] public float maxDistance = 5;
+    [SerializeField] public float minDistance = 1;
 
 
     [SerializeField] public Vector3 inpactRotation;
@@ -97,6 +97,12 @@ public class S_CHook : MonoBehaviour
         {
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
             RotateGun(mousePos, true);
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+
+            
         }
 
         HookChecks();
