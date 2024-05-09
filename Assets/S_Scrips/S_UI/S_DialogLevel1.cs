@@ -9,7 +9,7 @@ public class S_DialogLevel1 : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(2,4)] private string[] dialogueLines;
 
-    private float typingTime = 0.05f;
+    private float typingTime = 0f;
 
     private bool isPlayerInRange;
     private bool didDialogueStart;
