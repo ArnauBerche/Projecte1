@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class S_CHook : MonoBehaviour
 {
+    AudioManager audioManager;
+
     [Header("Scripts Ref:")]
     public S_CRope grappleRope;
     public S_CMovement moveChar;
@@ -63,6 +65,7 @@ public class S_CHook : MonoBehaviour
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
         detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -74,6 +77,7 @@ public class S_CHook : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
+            audioManager.PlaySFX(audioManager.sortidaGancho);
         }
         else if (Input.GetButton("Fire1"))
         {
