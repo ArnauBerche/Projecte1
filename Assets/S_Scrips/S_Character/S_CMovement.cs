@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+
+
 public class S_CMovement : MonoBehaviour
 {
+
+
+    AudioManager audioManager;
+
+
     [Header("Movement:")]
 
     public float speed;
@@ -25,6 +35,7 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Jump & Related:")]
 
+
     [SerializeField] private float jumpHeight = 20;
     [SerializeField] private float limitJumpTime = 1;
     [SerializeField] private float limitJumpTimeValue = 1;
@@ -36,13 +47,15 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private float bufferTime = 0.2f;
     private float bufferCounter;
 
+    
+
 
     [Header("Parachute:")]
 
     [SerializeField] private float parachuteDecendSpeed;
     private float directionMultyplayer;
     private float fallSpeedMultiplayer;
-
+    
 
     [Header("Components:")]
 
@@ -80,6 +93,7 @@ public class S_CMovement : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         animatorCharacter = GetComponent<Animator>();
         hook = GetComponent<S_CHook>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public Vector2 GetInput()
@@ -193,6 +207,7 @@ public class S_CMovement : MonoBehaviour
                 else
                 {
                     parachute = true;
+                    audioManager.PlaySFX(audioManager.parachute);
                 }
             }
         }
@@ -312,7 +327,8 @@ public class S_CMovement : MonoBehaviour
     {
         //We clear y velocity befor aplayinf a impuls force upwards
         rB.velocity = new Vector2(rB.velocity.x, 0);
-        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);                           
+        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        audioManager.PlaySFX(audioManager.jump);
     }
 
     public void Coyote()
@@ -350,6 +366,7 @@ public class S_CMovement : MonoBehaviour
 
     void DeadFunction()
     {
+        audioManager.PlaySFX(audioManager.pinchos);
         isDead = true;
         movementEnabled = false;
         rB.drag = 100;

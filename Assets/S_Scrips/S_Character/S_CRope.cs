@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class S_CRope : MonoBehaviour
 {
-[Header("General Refernces:")]
+
+    AudioManager audioManager;
+
+    [Header("General Refernces:")]
     public S_CHook grapplingGun;
     public LineRenderer m_lineRenderer;
     public GameObject hookSprite;
@@ -59,6 +62,7 @@ public class S_CRope : MonoBehaviour
         DrawRope();
         if(grapplingGun.isHooked)
         {
+            audioManager.PlaySFX(audioManager.entradaGancho);
             grapplingGun.m_springJoint2D.enabled = true;
             hookSprite.transform.rotation = Quaternion.Euler(0,0,grapplingGun.inpactRotation.x * 90 + (grapplingGun.inpactRotation.y > 0 ? grapplingGun.inpactRotation.y * 180 : grapplingGun.inpactRotation.y * 0));
         }
@@ -117,4 +121,17 @@ public class S_CRope : MonoBehaviour
         m_lineRenderer.SetPosition(0, grapplingGun.firePoint.position);
         m_lineRenderer.SetPosition(1, grapplingGun.grapplePoint);
     }
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
+
+
 }
+
+
+
+
+
