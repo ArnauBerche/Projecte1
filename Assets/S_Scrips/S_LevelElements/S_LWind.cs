@@ -48,7 +48,6 @@ public class S_LWind : MonoBehaviour
         {
             Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
             Player = col.gameObject.GetComponent<S_CMovement>();
-            Player.extraWindInertia = 5;
             if (playerRb != null)
             {
                 Vector2 direction = -transform.right;
@@ -64,13 +63,6 @@ public class S_LWind : MonoBehaviour
                     playerRb.velocity += direction * -WindStrenght;
                 }               
             }
-        }
-    }
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            Player.extraWindInertia = 0;
         }
     }
 }

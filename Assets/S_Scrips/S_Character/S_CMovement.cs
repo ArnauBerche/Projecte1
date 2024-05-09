@@ -97,16 +97,16 @@ public class S_CMovement : MonoBehaviour
             ApplyDeacceleration();
             LastPositionChecker();
 
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.7f : Mathf.Abs(direction);
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.8f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
             
             //Parachute falling speed diference
             //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
             if(parachute)
             {
-                if(isLower == true)
+                if(isLower)
                 {
-                    rB.velocity = new Vector2(rB.velocity.x, rB.velocity.y*-fallSpeedMultiplayer);
+                    rB.velocity *= new Vector2(1,-fallSpeedMultiplayer);
                 }
                 rB.gravityScale = fallGravityAir;
             }
@@ -379,9 +379,9 @@ public class S_CMovement : MonoBehaviour
         {
             foreach (ContactPoint2D hitpos in col.contacts)
             {
-                parachute = false;
                 if (hitpos.normal.y > 0)
                 {
+                    parachute = false;
                     onGround = true;
 
                         if(col.collider.tag == "Ice")
@@ -392,6 +392,10 @@ public class S_CMovement : MonoBehaviour
                         {
                             onIce = false; 
                         }
+                }
+                if(hitpos.normal.x > 0 || hitpos.normal.x < 0)
+                {
+                    parachute = false;
                 }
                 if (hitpos.normal.y < 0)
                 {
