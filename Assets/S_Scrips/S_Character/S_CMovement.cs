@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+
+
 public class S_CMovement : MonoBehaviour
 {
+
+
+    AudioManager audioManager;
+
+
     [Header("Movement:")]
 
     public float speed;
@@ -14,6 +24,7 @@ public class S_CMovement : MonoBehaviour
     public float maxSpeed;
     [SerializeField] float maxCrouchSpeed = 7f;
     [SerializeField] float maxWalkSpeed = 14;
+    [SerializeField] public float extraWindInertia = 0;
                
     [SerializeField] float groundDeceleration = 100;
     private float direction;    
@@ -23,6 +34,7 @@ public class S_CMovement : MonoBehaviour
 
 
     [Header("Jump & Related:")]
+
 
     [SerializeField] private float jumpHeight = 20;
     [SerializeField] private float limitJumpTime = 1;
@@ -35,13 +47,15 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] private float bufferTime = 0.2f;
     private float bufferCounter;
 
+    
+
 
     [Header("Parachute:")]
 
     [SerializeField] private float parachuteDecendSpeed;
     private float directionMultyplayer;
     private float fallSpeedMultiplayer;
-
+    
 
     [Header("Components:")]
 
@@ -63,9 +77,14 @@ public class S_CMovement : MonoBehaviour
 
     [Header("Death")]
     [SerializeField] private bool isDead;
+    [SerializeField] private bool isRespawning;
     [SerializeField] private bool movementEnabled = true;
     [SerializeField] public Vector3 respawnPoint;
     [SerializeField] private float deadtime = 1;
+
+    [Header("EnabledComps")]
+    [SerializeField] public bool parachuteIsEnabled;
+    [SerializeField] public bool HookIsEnabled;
 
 
     private void Awake()
@@ -74,6 +93,7 @@ public class S_CMovement : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         animatorCharacter = GetComponent<Animator>();
         hook = GetComponent<S_CHook>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public Vector2 GetInput()
@@ -91,16 +111,16 @@ public class S_CMovement : MonoBehaviour
             ApplyDeacceleration();
             LastPositionChecker();
 
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.5f : Mathf.Abs(direction*2);
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.8f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
             
             //Parachute falling speed diference
             //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
             if(parachute)
             {
-                if(isLower == true)
+                if(isLower)
                 {
-                    rB.velocity = new Vector2(rB.velocity.x, -fallSpeedMultiplayer);
+                    rB.velocity *= new Vector2(1,-fallSpeedMultiplayer);
                 }
                 rB.gravityScale = fallGravityAir;
             }
@@ -135,7 +155,7 @@ public class S_CMovement : MonoBehaviour
         Animations();
         if(movementEnabled)
         {
-            hook.enabled = true;
+            hook.enabled = HookIsEnabled;
             //JumpRelated
             Coyote();
             Buffer();            
@@ -178,7 +198,7 @@ public class S_CMovement : MonoBehaviour
             }
 
             //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
-            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked)
+            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked && parachuteIsEnabled)
             {
                 if(parachute)
                 {
@@ -187,6 +207,7 @@ public class S_CMovement : MonoBehaviour
                 else
                 {
                     parachute = true;
+                    audioManager.PlaySFX(audioManager.parachute);
                 }
             }
         }
@@ -241,7 +262,7 @@ public class S_CMovement : MonoBehaviour
         rB.AddForce(new Vector2(direction, 0) * speed);
 
         //if the absulute speed on x is superior to max speed we include y velocity acording to x speed
-        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
+        if(Mathf.Abs(rB.velocity.x) > maxSpeed + extraWindInertia)
         {
             rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
         }
@@ -306,7 +327,8 @@ public class S_CMovement : MonoBehaviour
     {
         //We clear y velocity befor aplayinf a impuls force upwards
         rB.velocity = new Vector2(rB.velocity.x, 0);
-        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);                           
+        rB.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        audioManager.PlaySFX(audioManager.jump);
     }
 
     public void Coyote()
@@ -344,6 +366,7 @@ public class S_CMovement : MonoBehaviour
 
     void DeadFunction()
     {
+        audioManager.PlaySFX(audioManager.pinchos);
         isDead = true;
         movementEnabled = false;
         rB.drag = 100;
@@ -354,7 +377,15 @@ public class S_CMovement : MonoBehaviour
 
     void Respawn()
     {
+        isRespawning = true;
         transform.position = respawnPoint;
+        Invoke("RegainControll", deadtime);
+        
+    }
+
+    void RegainControll()
+    {
+        isRespawning = false;
         isDead = false;
         movementEnabled = true;
     }
@@ -365,9 +396,9 @@ public class S_CMovement : MonoBehaviour
         {
             foreach (ContactPoint2D hitpos in col.contacts)
             {
-                parachute = false;
                 if (hitpos.normal.y > 0)
                 {
+                    parachute = false;
                     onGround = true;
 
                         if(col.collider.tag == "Ice")
@@ -378,6 +409,10 @@ public class S_CMovement : MonoBehaviour
                         {
                             onIce = false; 
                         }
+                }
+                if(hitpos.normal.x > 0 || hitpos.normal.x < 0)
+                {
+                    parachute = false;
                 }
                 if (hitpos.normal.y < 0)
                 {
@@ -398,7 +433,14 @@ public class S_CMovement : MonoBehaviour
 
         if (isDead)
         {
-
+            if(!isRespawning)
+            {
+                animatorCharacter.Play("Death");
+            }
+            else
+            {
+                animatorCharacter.Play("Respawn");
+            }      
         }
         else if (hook.isHooked)
         {

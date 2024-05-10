@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class S_CHook : MonoBehaviour
 {
+    AudioManager audioManager;
+
     [Header("Scripts Ref:")]
     public S_CRope grappleRope;
     public S_CMovement moveChar;
@@ -34,8 +36,8 @@ public class S_CHook : MonoBehaviour
 
     [Header("Distance:")]
     [SerializeField] private bool hasMaxDistance = false;
-    [SerializeField] private float maxDistance = 5;
-    [SerializeField] private float minDistance = 1;
+    [SerializeField] public float maxDistance = 5;
+    [SerializeField] public float minDistance = 1;
 
 
     [SerializeField] public Vector3 inpactRotation;
@@ -63,6 +65,7 @@ public class S_CHook : MonoBehaviour
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
         detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -74,6 +77,7 @@ public class S_CHook : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
+            audioManager.PlaySFX(audioManager.sortidaGancho);
         }
         else if (Input.GetButton("Fire1"))
         {
@@ -97,6 +101,12 @@ public class S_CHook : MonoBehaviour
         {
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
             RotateGun(mousePos, true);
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+
+            
         }
 
         HookChecks();
