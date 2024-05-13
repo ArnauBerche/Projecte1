@@ -37,7 +37,7 @@ public class S_CMovingHook : MonoBehaviour
         
         if(collision.gameObject.tag == "MP")
         {
-            hook.grapplePoint = collision.gameObject.transform.position + offset;
+            hook.grapplePoint = collision.gameObject.transform.position + (offset/1.2f);
             hook.m_springJoint2D.connectedAnchor = hook.grapplePoint;
             hook.m_springJoint2D.distance = enterDistance;
             gameObject.transform.position = hook.grapplePoint;

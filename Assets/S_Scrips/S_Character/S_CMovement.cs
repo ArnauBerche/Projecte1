@@ -21,7 +21,6 @@ public class S_CMovement : MonoBehaviour
     public float maxSpeed;
     [SerializeField] float maxCrouchSpeed = 7f;
     [SerializeField] float maxWalkSpeed = 14;
-    [SerializeField] public float extraWindInertia = 0;
                
     [SerializeField] float groundDeceleration = 100;
     private float direction;    
@@ -147,7 +146,6 @@ public class S_CMovement : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-
         Animations();
         if(movementEnabled)
         {
@@ -165,9 +163,7 @@ public class S_CMovement : MonoBehaviour
                 limitJumpTime = limitJumpTimeValue;
                 if (hook.isHooked) 
                 {
-                    hook.isHooked = false;
-                    hook.grappleRope.enabled = false;
-                    hook.m_springJoint2D.enabled = false;
+                    DissableHook();
                 }
 
                 //Jump
@@ -214,6 +210,13 @@ public class S_CMovement : MonoBehaviour
 
     }
 
+    public void DissableHook()
+    {
+        hook.isHooked = false;
+        hook.grappleRope.enabled = false;
+        hook.m_springJoint2D.enabled = false;
+    }
+
     public void LastPositionChecker()
     {
         //We use this to check if player is falling by setting current position to current pos,
@@ -257,7 +260,7 @@ public class S_CMovement : MonoBehaviour
         rB.AddForce(new Vector2(direction, 0) * speed);
 
         //if the absulute speed on x is superior to max speed we include y velocity acording to x speed
-        if(Mathf.Abs(rB.velocity.x) > maxSpeed + extraWindInertia)
+        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
         {
             rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
         }
@@ -271,8 +274,9 @@ public class S_CMovement : MonoBehaviour
             rB.drag = groundDeceleration; 
         } 
         else 
-        {
-            rB.drag = 0; 
+        {  
+            rB.drag = 0;
+
         }
     }
 
@@ -339,6 +343,7 @@ public class S_CMovement : MonoBehaviour
             validCoyote = false;
         }
     }
+
     public void Buffer() 
     {
         if (Input.GetButtonDown("Jump"))
@@ -350,6 +355,7 @@ public class S_CMovement : MonoBehaviour
             bufferCounter -= Time.deltaTime;
         }
     }
+
     public void OnTriggerEnter2D(Collider2D Trig)
     {
         if(Trig.gameObject.tag == "Death")
@@ -360,6 +366,7 @@ public class S_CMovement : MonoBehaviour
 
     void DeadFunction()
     {
+        DissableHook();
         isDead = true;
         movementEnabled = false;
         rB.drag = 100;
@@ -383,13 +390,18 @@ public class S_CMovement : MonoBehaviour
         movementEnabled = true;
     }
 
+    public void OnCollisionEnter2D(Collision2D col) 
+    {
+
+    }
+
     public void OnCollisionStay2D(Collision2D col) 
     {
         if (col.collider != null)
         {
             foreach (ContactPoint2D hitpos in col.contacts)
             {
-                if (hitpos.normal.y > 0)
+                if (hitpos.normal.y > 0.1f)
                 {
                     parachute = false;
                     onGround = true;
@@ -417,6 +429,7 @@ public class S_CMovement : MonoBehaviour
     public void OnCollisionExit2D(Collision2D col)
     {
         onGround = false;
+        onIce = false;
     }
 
     public void Animations()

@@ -8,7 +8,6 @@ public class CanvasController : MonoBehaviour
 
     void Start()
     {
-        
         canvas.enabled = false;
     }
 
