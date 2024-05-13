@@ -9,7 +9,7 @@ public class S_DialogLevel1 : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(2,4)] private string[] dialogueLines;
 
-    private float typingTime = 0f;
+    private float typingTime = 0.05f;
 
     private bool isPlayerInRange;
     private bool didDialogueStart;
@@ -26,7 +26,7 @@ public class S_DialogLevel1 : MonoBehaviour
             {
                 StartDialogue();
             }
-            else if(dialogueText.text == dialogueLines[lineIndex] && Input.GetKeyDown("o"))
+            else if(dialogueText.text == dialogueLines[lineIndex] && Input.GetKeyDown("space"))
             {
                 NextDialogueLine();
             }
