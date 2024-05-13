@@ -1,6 +1,8 @@
 # Projecte1
 
-La branca de entrega mes recent es main del 10/05/24 a les 23:55.
+La branca de entrega mes recent es main del 13/05/24 a les 9:35.
+
+*Veura que l'entrega del git esta atrasada, es degut a un accident a l'hora de fer els build settings, ens en hem adonat el dilluns i ho hem arreglat, apreciariem que utilitzesis aqueste versio, en el cas de no voler utilitzi la entrega de mein del dia 10 a les 23:55*
 
 Integrants:
 
