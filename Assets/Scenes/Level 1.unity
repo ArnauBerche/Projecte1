@@ -1300,6 +1300,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 144125556675214999, guid: c018115819a199a48aa88825432024bf, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1009671661034633851, guid: c018115819a199a48aa88825432024bf, type: 3}
       propertyPath: m_Name
       value: Canvas Main Menu
@@ -1312,6 +1316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraController
       objectReference: {fileID: 0}
+    - target: {fileID: 7234821734809308251, guid: c018115819a199a48aa88825432024bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7320205136649124678, guid: c018115819a199a48aa88825432024bf, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1321,7 +1329,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1599256461018877753, guid: c018115819a199a48aa88825432024bf, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 30196447520624622, guid: c018115819a199a48aa88825432024bf, type: 3}
       insertIndex: -1
