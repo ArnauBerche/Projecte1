@@ -21554,6 +21554,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4807543175821332854, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: onStay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807543175821332854, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: cursorForgivenes
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5119480277236450991, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_IsActive
       value: 1
