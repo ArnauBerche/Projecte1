@@ -55,12 +55,12 @@ public class S_LWind : MonoBehaviour
                 {
                     if(Player.parachute)
                     {
-                        playerRb.velocity += direction * -WindStrenght;
+                        playerRb.velocity += (direction * -WindStrenght) * Time.deltaTime;
                     }
                 }
                 else
                 {
-                    playerRb.velocity += direction * -WindStrenght;
+                    playerRb.velocity += (direction * -WindStrenght) *Time.deltaTime;
                 }               
             }
         }

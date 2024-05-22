@@ -95,4 +95,15 @@ public class S_DialogLevel1 : MonoBehaviour
             Debug.Log("No se puede iniciar un dialogo");
         }         
     }
+
+    public void DisableMovement() 
+    {
+    
+    }
+
+    public void EnableMovement()
+    {
+
+    }
+
 }

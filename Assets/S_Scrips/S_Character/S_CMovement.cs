@@ -19,6 +19,7 @@ public class S_CMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 80;
         
     public float maxSpeed;
+    public float maxUpSpeed;
     [SerializeField] float maxCrouchSpeed = 7f;
     [SerializeField] float maxWalkSpeed = 14;
                
@@ -263,6 +264,10 @@ public class S_CMovement : MonoBehaviour
         if(Mathf.Abs(rB.velocity.x) > maxSpeed)
         {
             rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
+        }
+        if (rB.velocity.y > maxUpSpeed)
+        {
+            rB.velocity = new Vector2(rB.velocity.x, maxUpSpeed);
         }
     }
 

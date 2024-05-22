@@ -12,6 +12,7 @@ public class S_CHook : MonoBehaviour
     public S_CCursor cursorScript;
     public GameObject mainCharacter;
     public GameObject detectionCursor;
+    public SpriteRenderer hookRangeRepresentator;
 
 
     [Header("Layers Settings:")]
@@ -57,13 +58,16 @@ public class S_CHook : MonoBehaviour
 
     public Vector3 dirToMouse;
 
+    public float defTime;
     private void Awake()
     {
         m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        hookRangeRepresentator = GameObject.Find("hookRange").GetComponent<SpriteRenderer>();
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
         detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
+        defTime = Time.fixedDeltaTime;
     }
 
     private void Update()
@@ -100,10 +104,24 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
-
-            
+            if (Time.timeScale > 0.4f)
+            {
+                Time.timeScale -= 2 * Time.deltaTime;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, hookRangeRepresentator.color.a + (2 * Time.deltaTime));
+            }
+            else
+            {
+                Time.timeScale = 0.4f;
+            }
+        }
+        else 
+        {
+            Time.fixedDeltaTime = defTime;
+            Time.timeScale = 1f;
+            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 0);
         }
 
         HookChecks();
