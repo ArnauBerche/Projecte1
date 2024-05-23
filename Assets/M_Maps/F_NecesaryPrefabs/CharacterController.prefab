@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2150235022995303287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.021, y: -0.466, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -265,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3860599691016943657}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7900008, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -339,36 +339,36 @@ LineRenderer:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
+      key2: {r: 0.40784317, g: 0.36078432, b: 0.25882354, a: 1}
+      key3: {r: 0.6117647, g: 0.5254902, b: 0.38823533, a: 0}
+      key4: {r: 0.40784317, g: 0.36078432, b: 0.25882354, a: 0}
+      key5: {r: 0.6117647, g: 0.5254902, b: 0.38823533, a: 0}
+      key6: {r: 0.40784317, g: 0.36078432, b: 0.25882354, a: 0}
+      key7: {r: 0.6117647, g: 0.5254902, b: 0.38823533, a: 0}
+      ctime0: 32575
       ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
+      ctime2: 19661
+      ctime3: 26214
+      ctime4: 32768
+      ctime5: 39321
+      ctime6: 45875
+      ctime7: 52428
+      atime0: 32382
+      atime1: 33539
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 1
     numCapVertices: 10
     alignment: 0
-    textureMode: 3
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_lineRenderer: {fileID: 1695408992584362655}
   hookSprite: {fileID: 5119480277236450991}
   Look: {x: 0, y: 0, z: 0}
-  percision: 40
+  percision: 2
   straightenLineSpeed: 20
   ropeAnimationCurve:
     serializedVersion: 2
@@ -443,7 +443,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ropeProgressionSpeed: 5
+  ropeProgressionSpeed: 20
+  speedInDistance: 0
 --- !u!1 &4032690005670821899
 GameObject:
   m_ObjectHideFlags: 0
@@ -5369,7 +5370,7 @@ GameObject:
   - component: {fileID: 2789281183814401461}
   m_Layer: 0
   m_Name: HookSprite
-  m_TagString: Untagged
+  m_TagString: MP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5597,7 +5598,7 @@ MonoBehaviour:
   DCenter: {fileID: 4208738438099787834}
   DClose: {fileID: 8725544766351421686}
   DMidle: {fileID: 3502031258932850456}
-  cursorForgivenes: 0.25
+  cursorForgivenes: 0.5
 --- !u!50 &1827020327274412514
 Rigidbody2D:
   serializedVersion: 4
@@ -5753,11 +5754,13 @@ MonoBehaviour:
   crouchSpeed: 35
   walkSpeed: 70
   maxSpeed: 0
-  maxFallSpeed: -20
   maxUpSpeed: 20
   maxCrouchSpeed: 6
   maxWalkSpeed: 12
   groundDeceleration: 100
+  defTime: 0
+  hookVol: {fileID: 0}
+  hookRangeRepresentator: {fileID: 0}
   jumpHeight: 20
   limitJumpTime: 1
   limitJumpTimeValue: 1
@@ -5894,7 +5897,6 @@ MonoBehaviour:
   cursorScript: {fileID: 4807543175821332854}
   mainCharacter: {fileID: 7507176513949589238}
   detectionCursor: {fileID: 6840053157243177529}
-  hookRangeRepresentator: {fileID: 3784421007411862934}
   grappableLayerNumber: 6
   m_camera: {fileID: 0}
   gunHolder: {fileID: 5384230244347458559}
@@ -5913,7 +5915,6 @@ MonoBehaviour:
   grappleDistanceVector: {x: 0, y: 0}
   dust: {fileID: 8009510025031941209}
   dirToMouse: {x: 0, y: 0, z: 0}
-  defTime: 0
 --- !u!1 &8725544766351421686
 GameObject:
   m_ObjectHideFlags: 0
@@ -6024,7 +6025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8868479461394994723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6099997, y: -4.21, z: 0}
+  m_LocalPosition: {x: -1.6100001, y: -4.21, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6073,7 +6074,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 14
   m_Sprite: {fileID: 21300000, guid: 790739e4ef44c6b4fa767102ac2c9837, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5411765}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

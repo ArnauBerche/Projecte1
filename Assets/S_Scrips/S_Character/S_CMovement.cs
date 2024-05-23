@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Rendering;
 
 
 
@@ -29,6 +29,9 @@ public class S_CMovement : MonoBehaviour
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
     private bool crouching;
 
+    public float defTime;
+    public Volume hookVol;
+    public SpriteRenderer hookRangeRepresentator;
 
     [Header("Jump & Related:")]
 
@@ -90,6 +93,9 @@ public class S_CMovement : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         animatorCharacter = GetComponent<Animator>();
         hook = GetComponent<S_CHook>();
+        hookVol = GameObject.Find("SlowMoPosPro").GetComponent<Volume>();
+        hookRangeRepresentator = GameObject.Find("hookRange").GetComponent<SpriteRenderer>();
+        defTime = Time.fixedDeltaTime;
     }
 
     public Vector2 GetInput()
@@ -147,7 +153,9 @@ public class S_CMovement : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
+
         Animations();
+
         if(movementEnabled)
         {
             hook.enabled = HookIsEnabled;
@@ -162,7 +170,7 @@ public class S_CMovement : MonoBehaviour
             {
                 //We set the amount of time character will jump and if needed we dissabled the hook.
                 limitJumpTime = limitJumpTimeValue;
-                if (hook.isHooked) 
+                if (hook.isHooked && Input.GetButton("Jump"))
                 {
                     DissableHook();
                 }
@@ -179,6 +187,8 @@ public class S_CMovement : MonoBehaviour
                 rB.gravityScale = fallGravityLand;
                 limitJumpTime = limitJumpTimeValue * 2;
             }
+            
+            //Dissable hook Specific
 
             // When "ctrl" is pressed and the player is on ground the player can crouch
             if(Input.GetButton("Crouch") && onGround)
@@ -207,7 +217,17 @@ public class S_CMovement : MonoBehaviour
         {
             hook.enabled = false;
         }
-        
+
+        //SlowMo
+
+        if (Input.GetButton("Fire2") && !isDead)
+        {
+            AplaySlowMOEffect();
+        }
+        else 
+        {
+            StopSlowMOEffect();
+        }
 
     }
 
@@ -371,6 +391,7 @@ public class S_CMovement : MonoBehaviour
 
     void DeadFunction()
     {
+        StopSlowMOEffect();
         DissableHook();
         isDead = true;
         movementEnabled = false;
@@ -436,6 +457,35 @@ public class S_CMovement : MonoBehaviour
         onGround = false;
         onIce = false;
     }
+
+    public void AplaySlowMOEffect()
+    {
+        if (Time.timeScale > 0.4f)
+        {
+            Time.timeScale -= 2 * Time.deltaTime;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
+            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, hookRangeRepresentator.color.a + (2 * Time.deltaTime));
+            hookVol.weight += 4 * Time.deltaTime;
+        }
+        else
+        {
+            hookVol.weight = 1;
+            Time.timeScale = 0.4f;
+        }
+    }
+
+    public void StopSlowMOEffect()
+    {
+        Time.fixedDeltaTime = defTime;
+        Time.timeScale = 1f;
+        
+        if(hookVol.weight > 0) {hookVol.weight -= 4 * Time.deltaTime;}
+        else {hookVol.weight = 0;}
+
+        hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 0);
+    }
+
+
 
     public void Animations()
     {

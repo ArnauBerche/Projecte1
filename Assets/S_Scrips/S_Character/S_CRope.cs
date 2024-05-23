@@ -14,7 +14,7 @@ public class S_CRope : MonoBehaviour
 
     [Header("General Settings:")]
     [SerializeField] private int percision = 40;
-    [Range(0, 20)] [SerializeField] private float straightenLineSpeed = 5;
+    [Range(0, 40)] [SerializeField] private float straightenLineSpeed = 5;
 
     [Header("Rope Animation Settings:")]
     public AnimationCurve ropeAnimationCurve;
@@ -26,9 +26,8 @@ public class S_CRope : MonoBehaviour
     [SerializeField] [Range(1, 50)] private float ropeProgressionSpeed = 1;
 
     float moveTime = 0;
-
+    public float speedInDistance;
     bool strightLine = true;
-
     private void OnEnable()
     {
         moveTime = 0;
@@ -105,7 +104,7 @@ public class S_CRope : MonoBehaviour
             float delta = (float)i / ((float)percision - 1f);
             Vector2 offset = Vector2.Perpendicular(grapplingGun.grappleDistanceVector).normalized * ropeAnimationCurve.Evaluate(delta) * waveSize;
             Vector2 targetPosition = Vector2.Lerp(grapplingGun.firePoint.position, grapplingGun.grapplePoint, delta) + offset;
-            Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed);
+            Vector2 currentPosition = Vector2.Lerp(grapplingGun.firePoint.position, targetPosition, ropeProgressionCurve.Evaluate(moveTime) * ropeProgressionSpeed / speedInDistance);
             hookSprite.SetActive(true);
             hookSprite.transform.position = currentPosition;
             hookSprite.transform.rotation = grapplingGun.gunPivot.rotation * Quaternion.Euler(0,0,-90);

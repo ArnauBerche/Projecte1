@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
+
 
 public class S_CHook : MonoBehaviour
 {
@@ -13,7 +13,6 @@ public class S_CHook : MonoBehaviour
     public S_CCursor cursorScript;
     public GameObject mainCharacter;
     public GameObject detectionCursor;
-    public SpriteRenderer hookRangeRepresentator;
 
 
     [Header("Layers Settings:")]
@@ -59,20 +58,15 @@ public class S_CHook : MonoBehaviour
 
     public Vector3 dirToMouse;
 
-    public float defTime;
-    public Volume hookVol;
-
 
     private void Awake()
     {
         m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        hookVol = GameObject.Find("SlowMoPosPro").GetComponent<Volume>();
-        hookRangeRepresentator = GameObject.Find("hookRange").GetComponent<SpriteRenderer>();
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_springJoint2D.frequency = 4;
         detectionCursor.transform.localScale = new Vector2(0.5f, 0.5f);
-        defTime = Time.fixedDeltaTime;
+
     }
 
     private void Update()
@@ -84,6 +78,7 @@ public class S_CHook : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SetGrapplePoint();
+            grappleRope.speedInDistance = Mathf.Abs(Vector2.Distance(firePoint.position, grapplePoint));
         }
         else if (Input.GetButton("Fire1"))
         {
@@ -109,32 +104,6 @@ public class S_CHook : MonoBehaviour
             RotateGun(mousePos, true);
         }
 
-        if (Input.GetButton("Fire2"))
-        {
-            if (Time.timeScale > 0.4f)
-            {
-                Time.timeScale -= 2 * Time.deltaTime;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, hookRangeRepresentator.color.a + (2 * Time.deltaTime));
-                hookVol.weight += 4 * Time.deltaTime;
-            }
-            else
-            {
-                hookVol.weight = 1;
-                Time.timeScale = 0.4f;
-            }
-        }
-        else 
-        {
-            Time.fixedDeltaTime = defTime;
-            Time.timeScale = 1f;
-            
-            if(hookVol.weight > 0) {hookVol.weight -= 4 * Time.deltaTime;}
-            else {hookVol.weight = 0;}
-
-            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 0);
-        }
-
         HookChecks();
         if (isHooked)
         {
@@ -151,7 +120,6 @@ public class S_CHook : MonoBehaviour
 
         
     }
-
 
     public void HookChecks()
     {
