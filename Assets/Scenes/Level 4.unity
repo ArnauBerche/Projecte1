@@ -45983,6 +45983,14 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 739122427509726808, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -38
+      objectReference: {fileID: 0}
+    - target: {fileID: 739122427509726808, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1867360537897509785, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -46033,6 +46041,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
       propertyPath: HookIsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}
+      propertyPath: SlowMoEnabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2422772604292206656, guid: d04fa8d0164d8a24cb5d343973c86ba7, type: 3}

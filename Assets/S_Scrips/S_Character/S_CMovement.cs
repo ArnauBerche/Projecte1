@@ -29,6 +29,8 @@ public class S_CMovement : MonoBehaviour
     private bool changedirection => (rB.velocity.x > 0f && direction < 0) ||  (rB.velocity.x < 0f && direction > 0);
     private bool crouching;
 
+    [Header("SlowMo:")]
+
     public float defTime;
     public Volume hookVol;
     public SpriteRenderer hookRangeRepresentator;
@@ -78,13 +80,14 @@ public class S_CMovement : MonoBehaviour
     [Header("Death")]
     [SerializeField] private bool isDead;
     [SerializeField] private bool isRespawning;
-    [SerializeField] private bool movementEnabled = true;
+    [SerializeField] public bool movementEnabled = true;
     [SerializeField] public Vector3 respawnPoint;
     [SerializeField] private float deadtime = 1;
 
     [Header("EnabledComps")]
     [SerializeField] public bool parachuteIsEnabled;
     [SerializeField] public bool HookIsEnabled;
+    [SerializeField] public bool SlowMoEnabled;
 
 
     private void Awake()
@@ -106,13 +109,14 @@ public class S_CMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        MoveCharacter();
+        ApplyDeacceleration();
+        LastPositionChecker();
+
+        // Process on a fixed Update all phisics related stuf
         if(movementEnabled)
         {
-            // Process on a fixed Update all phisics related stuf
-            MoveCharacter();
-            ApplyDeacceleration();
-            LastPositionChecker();
-
             directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.8f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
             
@@ -212,21 +216,21 @@ public class S_CMovement : MonoBehaviour
                     parachute = true;
                 }
             }
+            //SlowMo
+
+            if (Input.GetButton("Fire2") && !isDead && SlowMoEnabled)
+            {
+                AplaySlowMOEffect();
+            }
+            else 
+            {
+                StopSlowMOEffect();
+            }
         }
         else
         {
-            hook.enabled = false;
-        }
-
-        //SlowMo
-
-        if (Input.GetButton("Fire2") && !isDead)
-        {
-            AplaySlowMOEffect();
-        }
-        else 
-        {
             StopSlowMOEffect();
+            hook.enabled = false;
         }
 
     }
@@ -272,22 +276,30 @@ public class S_CMovement : MonoBehaviour
             speed = walkSpeed;
             maxSpeed = maxWalkSpeed;
         }
-
-        //Transform input in to a variable
-        direction = GetInput().x;
-        height = GetInput().y;
-
-        //We add force in horizantal axis acording our speed
-        rB.AddForce(new Vector2(direction, 0) * speed);
-
-        //if the absulute speed on x is superior to max speed we include y velocity acording to x speed
-        if(Mathf.Abs(rB.velocity.x) > maxSpeed)
+        if(movementEnabled)
         {
-            rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
+            //Transform input in to a variable
+            direction = GetInput().x;
+            height = GetInput().y;
+
+
+            //We add force in horizantal axis acording our speed
+            rB.AddForce(new Vector2(direction, 0) * speed);
+
+            //if the absulute speed on x is superior to max speed we include y velocity acording to x speed
+            if(Mathf.Abs(rB.velocity.x) > maxSpeed)
+            {
+                rB.velocity = new Vector2(Mathf.Sign(rB.velocity.x) * maxSpeed, rB.velocity.y);
+            }
+            if (rB.velocity.y > maxUpSpeed)
+            {
+                rB.velocity = new Vector2(rB.velocity.x, maxUpSpeed);
+            }
         }
-        if (rB.velocity.y > maxUpSpeed)
+        else
         {
-            rB.velocity = new Vector2(rB.velocity.x, maxUpSpeed);
+            direction = 0;
+            rB.velocity = new Vector2(0, 0);
         }
     }
 
@@ -391,7 +403,6 @@ public class S_CMovement : MonoBehaviour
 
     void DeadFunction()
     {
-        StopSlowMOEffect();
         DissableHook();
         isDead = true;
         movementEnabled = false;

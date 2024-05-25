@@ -1,32 +1,56 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class S_DialogLevel1 : MonoBehaviour
 {
 
+    [SerializeField] private S_CMovement mainCharacter;
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(2,4)] private string[] dialogueLines;
 
     private float typingTime = 0.05f;
 
+    public bool Cinematic;
+
     private bool isPlayerInRange;
     private bool didDialogueStart;
     private int lineIndex;
     [SerializeField] private int[] lineFontSize;
+    [SerializeField] private int[] maxTimeOnScreen;
+    [SerializeField] private Sprite[] IMGToShow;
+    [SerializeField] private bool[] youTalking;
 
+    public GameObject YouOBJ;
+    public GameObject NPCOBJ;    
+
+    public Image You;
+    public Image NPC;
+
+    public float currentTimeOnScreen;
+
+    void Awake()
+    {
+        if(!Cinematic)
+        {
+            mainCharacter = GameObject.Find("MainCharacter").GetComponent<S_CMovement>();
+        }
+    }
 
     void Update()
     {
-        SetLineSize();
         if (isPlayerInRange)
         {
+            currentTimeOnScreen += Time.deltaTime;
+            SetLineSize();
+            SetIMG();
             if(!didDialogueStart)
             {
                 StartDialogue();
             }
-            else if(dialogueText.text == dialogueLines[lineIndex] && Input.GetKeyDown("space"))
+            else if(dialogueText.text == dialogueLines[lineIndex] && (Input.GetKeyDown("space") || (currentTimeOnScreen >= maxTimeOnScreen[lineIndex]) && maxTimeOnScreen[lineIndex] != 0 ))
             {
                 NextDialogueLine();
             }
@@ -42,12 +66,13 @@ public class S_DialogLevel1 : MonoBehaviour
         didDialogueStart = true;
         dialoguePanel.SetActive(true); 
         lineIndex = 0;
-        Time.timeScale = 0f;
+        DisableMovement();
         StartCoroutine(ShowLine());
     }
 
     private void NextDialogueLine()
     {
+        currentTimeOnScreen = 0;
         lineIndex++;
         if(lineIndex < dialogueLines.Length)
         {
@@ -57,13 +82,42 @@ public class S_DialogLevel1 : MonoBehaviour
         {
             didDialogueStart=false;
             dialoguePanel.SetActive(false);
-            Time.timeScale = 1f;
+            EnableMovement();
+            YouOBJ.SetActive(false);
+            NPCOBJ.SetActive(false);
         }
     }
 
     private void SetLineSize()
     {
         dialogueText.fontSize = lineFontSize[lineIndex];
+    }
+    
+    private void SetIMG()
+    {
+        SetShowGameObject();
+        if(youTalking[lineIndex])
+        {
+            You.sprite = IMGToShow[lineIndex];
+        }
+        else
+        {
+            NPC.sprite = IMGToShow[lineIndex];
+        }
+
+    }
+    private void SetShowGameObject()
+    {
+        if(youTalking[lineIndex])
+        {
+            YouOBJ.SetActive(true);
+            NPCOBJ.SetActive(false);
+        }
+        else
+        {
+            YouOBJ.SetActive(false);
+            NPCOBJ.SetActive(true);
+        }
     }
 
     private IEnumerator ShowLine()
@@ -98,12 +152,18 @@ public class S_DialogLevel1 : MonoBehaviour
 
     public void DisableMovement() 
     {
-    
+        if(!Cinematic)
+        {
+            mainCharacter.movementEnabled = false;
+        }
     }
 
     public void EnableMovement()
     {
-
+        if(!Cinematic)
+        {
+            mainCharacter.movementEnabled = true;
+        }
     }
 
 }
