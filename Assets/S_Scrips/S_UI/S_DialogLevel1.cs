@@ -11,10 +11,11 @@ public class S_DialogLevel1 : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(2,4)] private string[] dialogueLines;
 
-    private float typingTime = 0.05f;
-
+    private float typingTime;
+    private float defaultTypingTime = 0.05f;
     public bool Cinematic;
 
+    
     private bool isPlayerInRange;
     private bool didDialogueStart;
     private int lineIndex;
@@ -33,6 +34,7 @@ public class S_DialogLevel1 : MonoBehaviour
 
     void Awake()
     {
+        typingTime = defaultTypingTime;
         if(!Cinematic)
         {
             mainCharacter = GameObject.Find("MainCharacter").GetComponent<S_CMovement>();
@@ -50,9 +52,14 @@ public class S_DialogLevel1 : MonoBehaviour
             {
                 StartDialogue();
             }
-            else if(dialogueText.text == dialogueLines[lineIndex] && (Input.GetKeyDown("space") || (currentTimeOnScreen >= maxTimeOnScreen[lineIndex]) && maxTimeOnScreen[lineIndex] != 0 ))
+            else if((dialogueText.text == dialogueLines[lineIndex] && (Input.GetKeyDown("space")) && !Cinematic || (currentTimeOnScreen >= maxTimeOnScreen[lineIndex]) && maxTimeOnScreen[lineIndex] != 0 ))
             {
+                typingTime = defaultTypingTime;
                 NextDialogueLine();
+            }
+            else if ((dialogueText.text != dialogueLines[lineIndex] && Input.GetKeyDown("space")) && !Cinematic)
+            {
+                typingTime = 0;
             }
         }
         if (lineIndex == dialogueLines.Length) 
