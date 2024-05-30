@@ -10,8 +10,6 @@ using UnityEngine.Rendering;
 
 public class S_CMovement : MonoBehaviour
 {
-
-
     [Header("Movement:")]
 
     public float speed;
@@ -34,6 +32,9 @@ public class S_CMovement : MonoBehaviour
     public float defTime;
     public Volume hookVol;
     public SpriteRenderer hookRangeRepresentator;
+    public Slider cooldownSlide;
+    public float slowmoTime = 2;
+    public float slowmoCounter;
 
     [Header("Jump & Related:")]
 
@@ -99,6 +100,7 @@ public class S_CMovement : MonoBehaviour
         hookVol = GameObject.Find("SlowMoPosPro").GetComponent<Volume>();
         hookRangeRepresentator = GameObject.Find("hookRange").GetComponent<SpriteRenderer>();
         defTime = Time.fixedDeltaTime;
+        slowmoCounter = slowmoTime;
     }
 
     public Vector2 GetInput()
@@ -117,18 +119,40 @@ public class S_CMovement : MonoBehaviour
         // Process on a fixed Update all phisics related stuf
         if(movementEnabled)
         {
-            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.8f : Mathf.Abs(direction);
+            directionMultyplayer = Mathf.Abs(direction) == 0 ? 0.75f : Mathf.Abs(direction);
             fallSpeedMultiplayer = parachuteDecendSpeed/directionMultyplayer;
-            
+
+
             //Parachute falling speed diference
             //When you pres "E" the parachute activates but doesn't change you'r speed till you start losing height.
             if(parachute)
             {
                 if(isLower)
                 {
-                    rB.velocity *= new Vector2(1,-fallSpeedMultiplayer);
+                    if(PlayerPrefs.GetInt("FloatingParavela") != 1)
+                    {
+                        rB.velocity *= new Vector2(1,-fallSpeedMultiplayer);
+                    }
                 }
-                rB.gravityScale = fallGravityAir;
+                if(PlayerPrefs.GetInt("FloatingParavela") != 1)
+                {
+                    rB.gravityScale = fallGravityAir;
+                }
+                else
+                {
+                    rB.velocity *= new Vector2(1,0);
+                    rB.gravityScale = 0;
+                    if(Input.GetAxisRaw("Vertical") > 0)
+                    {
+                        rB.velocity += new Vector2(0,10);
+                    }
+                    else if(Input.GetAxisRaw("Vertical") < 0)
+                    {
+                        rB.velocity += new Vector2(0,-10);
+                    }
+
+                }
+
             }
         }
     }
@@ -148,6 +172,7 @@ public class S_CMovement : MonoBehaviour
 
     private void Update()
     {
+        cooldownSlide.value = slowmoCounter;
         //Check 4 Animations
         if (direction < 0)
         {
@@ -156,6 +181,11 @@ public class S_CMovement : MonoBehaviour
         else if(direction > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        if(PlayerPrefs.GetInt("ShowRangeHook") == 1)
+        {
+            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 1);
         }
 
         Animations();
@@ -205,7 +235,7 @@ public class S_CMovement : MonoBehaviour
             }
 
             //if the player isn't hooked or on ground when "E" is pressed opens parachute, if is already opened it gets closed. 
-            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked && parachuteIsEnabled)
+            if(Input.GetButtonDown("Parachute") && !onGround && !hook.isHooked && (parachuteIsEnabled || PlayerPrefs.GetInt("FloatingParavela") == 1))
             {
                 if(parachute)
                 {
@@ -218,11 +248,21 @@ public class S_CMovement : MonoBehaviour
             }
             //SlowMo
 
-            if (Input.GetButton("Fire2") && !isDead && SlowMoEnabled)
+            if (Input.GetButton("Fire2") && !isDead && SlowMoEnabled && (PlayerPrefs.GetInt("InfiniteSlowMo") == 1 || slowmoCounter > 0))
             {
+                if(slowmoCounter > 0){
+                    slowmoCounter -= Time.deltaTime;
+                }
                 AplaySlowMOEffect();
             }
-            else 
+            else if(!Input.GetButton("Fire2"))
+            {
+                if(slowmoCounter < slowmoTime){
+                    slowmoCounter += Time.deltaTime;
+                }
+                StopSlowMOEffect();
+            }
+            else
             {
                 StopSlowMOEffect();
             }
@@ -475,7 +515,11 @@ public class S_CMovement : MonoBehaviour
         {
             Time.timeScale -= 2 * Time.deltaTime;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
-            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, hookRangeRepresentator.color.a + (2 * Time.deltaTime));
+            if(PlayerPrefs.GetInt("InfiniteSlowMo") != 1){cooldownSlide.gameObject.SetActive(true);}
+            if(PlayerPrefs.GetInt("ShowRangeHook") != 1)
+            {
+                hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, hookRangeRepresentator.color.a + (2 * Time.deltaTime));
+            }
             hookVol.weight += 4 * Time.deltaTime;
         }
         else
@@ -489,11 +533,13 @@ public class S_CMovement : MonoBehaviour
     {
         Time.fixedDeltaTime = defTime;
         Time.timeScale = 1f;
-        
+        cooldownSlide.gameObject.SetActive(false);
         if(hookVol.weight > 0) {hookVol.weight -= 4 * Time.deltaTime;}
         else {hookVol.weight = 0;}
-
-        hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 0);
+        if(PlayerPrefs.GetInt("ShowRangeHook") != 1)
+        {
+            hookRangeRepresentator.color = new Color(hookRangeRepresentator.color.r, hookRangeRepresentator.color.g, hookRangeRepresentator.color.b, 0);
+        }
     }
 
 

@@ -12,12 +12,10 @@ public class VolumeSettings : MonoBehaviour
     {
         if(PlayerPrefs.HasKey("musicVolume"))
         {
-
             LoadVolume();
         }
         else
         {
-
             SetMusicVolume();
         }
        
@@ -35,7 +33,7 @@ public class VolumeSettings : MonoBehaviour
     private void LoadVolume()
     {
 
-        musicSlider.value = PlayerPrefs.GetFloat("musicV olume");
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
 
         SetMusicVolume();
 
