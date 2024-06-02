@@ -3,7 +3,13 @@ guid: f817764093c46b34483b38d026c9ea55
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SFXSource: {instanceID: 0}
+  - sortidaGancho: {instanceID: 0}
+  - entradaGancho: {instanceID: 0}
+  - jump: {fileID: 8300000, guid: 3dd41d9fe95a7094f9369d177bb2e42d, type: 3}
+  - pinchos: {instanceID: 0}
+  - parachute: {fileID: 8300000, guid: 275ff523d5a277a418089539058c348c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
