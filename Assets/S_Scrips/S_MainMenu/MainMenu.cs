@@ -78,5 +78,9 @@ public class MainMenu : MonoBehaviour
         S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
         transition.CallPass(5);
     }
-
+    public void LoadLVL5()
+    {
+        S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
+        transition.CallPass(6);
+    }
 }

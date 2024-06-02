@@ -9,11 +9,13 @@ public class LevelSelector : MonoBehaviour
     public GameObject LVL2;
     public GameObject LVL3;
     public GameObject LVL4;
+    public GameObject LVL5;
 
     public GameObject LVL1B;
     public GameObject LVL2B;
     public GameObject LVL3B;
     public GameObject LVL4B;
+    public GameObject LVL5B;
     
 
     // Start is called before the first frame update
@@ -26,10 +28,12 @@ public class LevelSelector : MonoBehaviour
             LVL2B.SetActive(true);
             LVL3B.SetActive(true);
             LVL4B.SetActive(true);
+            LVL5B.SetActive(true);
             LVL1.SetActive(false);
             LVL2.SetActive(false);
             LVL3.SetActive(false);
             LVL4.SetActive(false);
+            LVL5.SetActive(false);
         }
         else
         {
@@ -38,10 +42,12 @@ public class LevelSelector : MonoBehaviour
             LVL2B.SetActive(false);
             LVL3B.SetActive(false);
             LVL4B.SetActive(false);
+            LVL5B.SetActive(false);
             LVL1.SetActive(true);
             LVL2.SetActive(true);
             LVL3.SetActive(true);
             LVL4.SetActive(true);
+            LVL5.SetActive(true);
         }
 
     }
