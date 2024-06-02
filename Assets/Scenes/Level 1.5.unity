@@ -25967,6 +25967,10 @@ PlayableDirector:
     value: {fileID: 1183760305}
   - key: {fileID: -4041645410784786168, guid: bfbefd9f964055644a5c01b48f4de9d7, type: 2}
     value: {fileID: 1204230538}
+  - key: {fileID: 2179749158523006326, guid: bfbefd9f964055644a5c01b48f4de9d7, type: 2}
+    value: {fileID: 987973470}
+  - key: {fileID: 2057834110526227274, guid: bfbefd9f964055644a5c01b48f4de9d7, type: 2}
+    value: {fileID: 987973470}
   m_ExposedReferences:
     m_References:
     - 2d0d9db83beb1b64f9f2461a4fba917b: {fileID: 892912028}
@@ -28236,6 +28240,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!82 &987973470 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 521978012427635476, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+  m_PrefabInstance: {fileID: 1872475181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1018265407
 GameObject:
   m_ObjectHideFlags: 0
@@ -51869,6 +51878,75 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!1001 &1872475181
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 521978012427635476, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 521978012427635476, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: f38b09c0e33b39d4cabf4c4741790e66, type: 2}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 29.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.082004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669987080953029447, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396684742705966765, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 557afc58103ebe04d8ff5556fd1f9264, type: 3}
 --- !u!1 &1966605798
 GameObject:
   m_ObjectHideFlags: 0

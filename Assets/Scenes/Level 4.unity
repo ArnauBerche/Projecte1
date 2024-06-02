@@ -85976,7 +85976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6603937640594926087, guid: 4bdfd0db999237e43b9ac49e5a15abf1, type: 3}
       propertyPath: WindStrenght
-      value: 1.3
+      value: 85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -25,17 +25,8 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
-        if(PlayerPrefs.GetInt("DevMode") != 1)
-        {
-            S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
-            transition.CallPass(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-        else
-        {
-            S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
-            transition.CallPass(2);
-        }
-
+        S_LevelLoader transition = GameObject.Find("LevelLoader").GetComponent<S_LevelLoader>();
+        transition.CallPass(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void BTM()
